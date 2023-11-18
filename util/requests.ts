@@ -13,5 +13,5 @@ export interface articlesData<T> {
 }
 
 export const request = async <K>(path: string) => {
-	return await useFetch<Res<K>>(`http://admin.xinqingnian.icu/api${path}`);
+	return await useFetch<Res<K>>(`http://127.0.0.1:3001${path}`);
 };

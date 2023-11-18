@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
 import { EditPen } from "@element-plus/icons-vue";
-import { request, articlesData } from "~/util/requests";
+import { request, type articlesData } from "~/util/requests";
 
 type tagdata = {
 	ID: number;

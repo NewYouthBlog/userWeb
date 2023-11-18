@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { request, articlesData } from "~/util/requests";
+import { request, type articlesData } from "~/util/requests";
 type Article = {
 	headimg: string;
 	status: number;
