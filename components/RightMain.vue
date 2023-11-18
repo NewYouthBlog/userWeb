@@ -10,7 +10,7 @@
 				</div>
 			</template>
 			<div class="tags">
-				<div v-for="tag in tags" :key="tag.ID" class="text item">
+				<div v-for="tag in tags" :key="tag._id" class="text item">
 					<a :href="`/${tag.name}`">
 						<el-button
 							size="small"
@@ -30,14 +30,14 @@
 import { request } from "~/util/requests";
 
 type tagdata = {
-	ID: number;
+	_id: string;
 	name: string;
 };
 
 const tags = ref<tagdata[]>([]);
 const route = useRoute();
 const name = route.params.tag;
-const { data } = await request<tagdata[]>("/tags/findall");
+const { data } = await request<tagdata[]>("/tags");
 tags.value = data.value!.data as tagdata[];
 </script>
 <style scoped>

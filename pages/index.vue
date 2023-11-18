@@ -1,9 +1,9 @@
 <template>
 	<el-carousel height="50vh" :interval="8000" arrow="always">
-		<el-carousel-item v-for="data in headline" :key="data.ID">
-			<a :href="`/article/${data.ID}`" target="_blank">
+		<el-carousel-item v-for="data in headline" :key="data._id">
+			<a :href="`/article/${data._id}`" target="_blank">
 				<img
-					:src="`https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/${data.headimg}`"
+					:src="`https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/${data.HeadImg}`"
 					alt=""
 				/>
 				<div class="vcenter">{{ data.title }}</div>
@@ -23,9 +23,9 @@
 <script setup lang="ts">
 import { request, type articlesData } from "~/util/requests";
 type Article = {
-	headimg: string;
+	HeadImg: string;
 	status: number;
-	ID: number;
+	_id: string;
 	title: string;
 };
 

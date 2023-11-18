@@ -2,11 +2,10 @@ import { useFetch } from "nuxt/app";
 export interface Res<T> {
 	code: number;
 	data: articlesData<T> | T;
-	msg: string;
+	message: string;
 }
 export interface articlesData<T> {
 	articles: T;
-	current_page_size: number;
 	limit: number;
 	page: number;
 	total: number;

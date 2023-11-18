@@ -1,10 +1,10 @@
 <template>
 	<el-empty v-if="isEmpty" description="这个标签里居然什么都没有" />
-	<el-card shadow="hover" v-for="item in postData" :key="item.ID">
+	<el-card shadow="hover" v-for="item in postData" :key="item._id">
 		<el-image fit="cover" style="border-radius: 5px" :src="`${item.image}`"></el-image>
 		<div class="cardofinfo">
 			<div class="title">
-				<a :href="`/article/${item.ID}`" target="_blank">
+				<a :href="`/article/${item._id}`" target="_blank">
 					{{ item.title }}
 				</a>
 			</div>
@@ -13,7 +13,7 @@
 			</div>
 			<div class="data">
 				<span class="tags">
-					<el-tag style="margin: 3px" v-for="tag in item.Tags" :key="tag.ID" effect="light" round>
+					<el-tag style="margin: 3px" v-for="tag in item.tags" :key="tag._id" effect="light" round>
 						{{ tag.name }}
 					</el-tag>
 				</span>
@@ -21,7 +21,7 @@
 					<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
 						<EditPen />
 					</el-icon>
-					{{ item.UpdatedAt.slice(0, 10) }}
+					{{ item.updatedAt.slice(0, 10) }}
 				</span>
 			</div>
 		</div>
@@ -43,18 +43,18 @@ import { EditPen } from "@element-plus/icons-vue";
 import { request, type articlesData } from "~/util/requests";
 
 type tagdata = {
-	ID: number;
+	_id: number;
 	name: string;
 };
 type artdata = {
-	ID: number;
+	_id: number;
 	title: string;
 	content: string;
-	Tags: tagdata[];
+	tags: tagdata[];
 	status: number;
 	image: string;
-	headimg: string;
-	UpdatedAt: string;
+	HeadImg: string;
+	updatedAt: string;
 };
 
 const isEmpty = computed(() => {
@@ -70,9 +70,9 @@ const isEmpty = computed(() => {
 });
 const route = useRoute();
 const name = route.params.tag;
-let dataurl = `/tags/${name}?page=1&limit=10`;
+let dataurl = `/articles/tags/${name}?page=1&limit=10`;
 if (name === undefined) {
-	dataurl = "/article/findall?status=1&page=1&limit=10";
+	dataurl = "/articles?status=1&page=1&limit=10";
 }
 
 const total = ref(0);

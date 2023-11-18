@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import "element-plus/theme-chalk/display.css";
 import { useRoute } from "vue-router";
-import { articlesData, request } from "~/util/requests";
+import { type articlesData, request } from "~/util/requests";
 import { MdPreview, MdCatalog } from "md-editor-v3";
 import "md-editor-v3/lib/preview.css";
 
@@ -72,24 +72,24 @@ onMounted(() => {
 });
 
 interface article {
-	ID: number;
+	_id: number;
 	title: string;
 	content: string;
 	status: number;
 	image: string;
-	headimg: string;
-	UpdatedAt: string;
+	HeadImg: string;
+	updatedAt: string;
 }
 
 const md_moudle = "preview-only";
 
-const { data } = await request<article>("/article/" + id);
+const { data } = await request<article>("/articles/" + id);
 if (data.value! === null) {
 	throw createError({
 		statusCode: 404,
 	});
 }
-const article = (data.value!.data as articlesData<article>).articles;
+const article = data.value!.data as articlesData<article>;
 </script>
 
 <style scoped>

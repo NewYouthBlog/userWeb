@@ -14,12 +14,12 @@
 					:key="index"
 					:color="activity.color"
 					placement="top"
-					:timestamp="index.toString()"
+					:timestamp="activity._id.year + '-' + activity._id.month + '-' + activity._id.day"
 					:hollow="true"
 				>
-					<a v-for="content in activity" :href="`/article/${content.ID}`" target="_blank"
+					<a v-for="content in activity.articles" :href="`/article/${content._id}`" target="_blank"
 						><p>
-							{{ content.Title }}
+							{{ content.title }}
 						</p></a
 					>
 				</el-timeline-item>
@@ -29,61 +29,39 @@
 </template>
 
 <script lang="ts" setup>
-import { articlesData, request } from "~/util/requests";
+import { request } from "~/util/requests";
 
-type Activity = {
-	ID: number;
-	CreatedAt: string;
-	Title: string;
-	color?: string;
+type articles = {
+	_id: string;
+	createdAt: string;
+	title: string;
 };
 
-const { data } = await request<Activity[]>("/article/archive");
-const articleList = (data.value!.data as articlesData<Activity[]>).articles;
-// 取出articleList中的CreatedAt字段,并去重，成为一个数组
-const dates = Array.from(new Set(articleList.map((item) => item.CreatedAt.slice(0, 4))));
-// 将dates中的年份作为key，以颜色作为value，组成一个对象
-const colors = dates.reduce((colors: any, date, index) => {
-	switch (index) {
-		case 0:
-			colors[date] = "#5cbfef";
-			break;
-		case 1:
-			colors[date] = "#0bbd87";
-			break;
-		case 2:
-			colors[date] = "#ff9900";
-			break;
-		case 3:
-			colors[date] = "#ff6699";
-			break;
-		case 4:
-			colors[date] = "#ff3300";
-			break;
-		case 5:
-			colors[date] = "#ff0066";
-			break;
-		case 6:
-			colors[date] = "#ff0000";
-			break;
-		default:
-			colors[date] = "#5cbfef";
-	}
-	return colors;
-}, {});
+type Activity = {
+	_id: { year: number; month: number; day: number };
+	articles: articles[];
+	color: string;
+};
 
-// 以timestamp为key，将activities分组
-let groups = articleList.reduce((groups: any, activity) => {
-	const date: any = activity.CreatedAt.slice(0, 10);
-	if (!groups[date]) {
-		groups[date] = [];
+const groups = ref<Activity[]>([]);
+const { data } = await request<Activity[]>("/archive");
+groups.value = data.value!.data as Activity[];
+//根据年份设置颜色
+groups.value.forEach((item) => {
+	if (item._id.year === 2022) {
+		item.color = "#0bbd87";
+	} else if (item._id.year === 2023) {
+		item.color = "#5cbfef";
+	} else if (item._id.year === 2024) {
+		item.color = "#f0ad4e";
+	} else if (item._id.year === 2025) {
+		item.color = "#d9534f";
+	} else if (item._id.year === 2026) {
+		item.color = "#5cbfef";
+	} else if (item._id.year === 2027) {
+		item.color = "#f0ad4e";
 	}
-	groups[date].push(activity);
-	groups[date].color = colors[date.slice(0, 4)];
-	return groups;
-}, {});
-
-console.log(groups);
+});
 </script>
 
 <style scoped>
