@@ -1,0 +1,1 @@
+import{_,o as s,c as t,b as o,x as n}from"./entry.b8e5e396.js";const a={},c={class:"page-header"},d={class:"route-font"};function r(e,f){return s(),t("div",c,[o("div",d,[n(e.$slots,"default",{},void 0,!0)])])}const i=_(a,[["render",r],["__scopeId","data-v-6f54db76"]]);export{i as _};
