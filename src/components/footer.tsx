@@ -57,7 +57,6 @@ export default function Footer() {
             }}
           >
             <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
-              <SitemarkIcon />
               <Typography
                 variant="body2"
                 gutterBottom
