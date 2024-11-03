@@ -5,7 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, styled, ThemeProvider } from "@mui/material";
-import { HomeIcon } from "@radix-ui/react-icons";
+import HomeIcon from "@mui/icons-material/Home";
+import ArchiveIcon from "@mui/icons-material/Archive";
 
 const theme = createTheme({
   palette: {
@@ -23,24 +24,35 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
 }));
 
+const items = [
+  { label: "主页", icon: <HomeIcon /> },
+  { label: "归档", icon: <ArchiveIcon /> }, // 假设还有其他图标
+  // 可以在这里添加更多的项目
+];
 export default function ButtonAppBar() {
   return (
     <ThemeProvider theme={theme}>
-      <StyledAppBar position="static" color="transparent">
+      <StyledAppBar position="fixed" color="transparent">
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton
-            size="small"
-            edge="start"
-            color="secondary"
-            aria-label="menu"
-            sx={{ mr: 1 }}
-          >
-            <Typography component="div" className=" font-custom">
-              <HomeIcon />
-              主页
-            </Typography>
-          </IconButton>
+          {items.map((item, index) => (
+            <IconButton
+              key={index} // 使用唯一的 key
+              size="small"
+              edge="end"
+              color="secondary"
+              aria-label={item.label}
+              sx={{ mr: 2 }}
+            >
+              <Typography
+                component="div"
+                className="font-custom flex items-center"
+              >
+                {item.icon}
+                {item.label}
+              </Typography>
+            </IconButton>
+          ))}
         </Toolbar>
       </StyledAppBar>
     </ThemeProvider>

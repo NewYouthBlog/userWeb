@@ -1,4 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @font-face {
   font-family: "Consolas";
   src: url("/fonts/consolas.ttf") format("ttf");
+}
+html ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html ::-webkit-scrollbar-thumb {
+  background-color: #efbcda;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgb(171, 245, 218) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgb(150, 212, 236) 50%,
+    rgb(239, 147, 228) 75%,
+    transparent 75%,
+    transparent
+  );
+  border-radius: 2em;
+}
+html ::-webkit-scrollbar-track {
+  display: none;
 }
