@@ -1,13 +1,11 @@
 "use client";
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, styled, ThemeProvider } from "@mui/material";
-import { FileArchiveIcon } from "lucide-react";
+import { HomeIcon } from "@radix-ui/react-icons";
 
 const theme = createTheme({
   palette: {
@@ -28,26 +26,23 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 export default function ButtonAppBar() {
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        <StyledAppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="secondary"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <Typography component="div" className="flex items-center">
-                <FileArchiveIcon fontSize="small" />
-                文档
-              </Typography>
-            </IconButton>
-            <Box sx={{ flexGrow: 1 }} />
-            <Button color="secondary">Login</Button>
-          </Toolbar>
-        </StyledAppBar>
-      </Box>
+      <StyledAppBar position="static" color="transparent">
+        <Toolbar>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton
+            size="small"
+            edge="start"
+            color="secondary"
+            aria-label="menu"
+            sx={{ mr: 1 }}
+          >
+            <Typography component="div" className=" font-custom">
+              <HomeIcon />
+              主页
+            </Typography>
+          </IconButton>
+        </Toolbar>
+      </StyledAppBar>
     </ThemeProvider>
   );
 }

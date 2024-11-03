@@ -11,7 +11,6 @@ export default function Home() {
         sx={{ display: "flex", flexDirection: "column", my: 16, gap: 4 }}
       >
         {/* <MainContent /> */}
-        <div className="h-100 w-100 text-red-600 "></div>
       </Container>
       {/* <Footer /> */}
     </>
