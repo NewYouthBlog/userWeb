@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import BlurIn from "./ui/blur-in";
+import BlurIn from "@/components/ui/blur-in";
 import { useState } from "react";
 
 //FIX: use database

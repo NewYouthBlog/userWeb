@@ -1,6 +1,6 @@
 import AppAppBar from "@/components/AppBar";
 import Footer from "@/components/footer";
-import SwiperImg from "@/components/SwiperImg";
+import SwiperImg from "@/components/swiper/SwiperImg";
 import { Box } from "@mui/material";
 
 export default function Home() {
