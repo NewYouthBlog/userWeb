@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import BlurIn from "@/components/ui/blur-in";
 import { useState } from "react";
+import "./swiper.css";
 
 //FIX: use database
 const item = [
@@ -36,8 +37,7 @@ export default function SwiperImg() {
         navigation={showNavigation}
         pagination={{ clickable: true }}
         // style={{ height: "50vh", width: "100%" }}
-
-        className="w-full  sm:h-1/3 md:h-1/3 lg:h-1/2"
+        className="swiper-container"
       >
         {item.map((value, index) => (
           <SwiperSlide key={index}>

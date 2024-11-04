@@ -26,3 +26,5 @@ html ::-webkit-scrollbar-thumb {
 html ::-webkit-scrollbar-track {
   display: none;
 }
+html body {
+}

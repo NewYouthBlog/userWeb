@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        customCardBg: "#d9e2e7", // 自定义颜色
+        customGreen: "#38c172",
+        // 你可以添加更多自定义颜色
+      },
       fontFamily: {
         custom: ["Consolas", "sans-serif"], // 'YourCustomFont' 是你定义的字体名称
       },

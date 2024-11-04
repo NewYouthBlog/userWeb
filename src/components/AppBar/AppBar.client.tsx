@@ -24,18 +24,20 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
 }));
 
-const items = [
-  { label: "主页", icon: <HomeIcon /> },
-  { label: "归档", icon: <ArchiveIcon /> }, // 假设还有其他图标
-  // 可以在这里添加更多的项目
-];
-export default function ButtonAppBar() {
+export default function AppBarClient() {
+  //FIX:使用后端
+  const barText = [
+    { label: "主页", icon: <HomeIcon /> },
+    { label: "归档", icon: <ArchiveIcon /> }, // 假设还有其他图标
+    // 可以在这里添加更多的项目
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <StyledAppBar position="fixed" color="transparent">
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
-          {items.map((item, index) => (
+          {barText.map((item, index) => (
             <IconButton
               key={index} // 使用唯一的 key
               size="small"

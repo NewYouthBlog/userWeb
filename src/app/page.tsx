@@ -1,7 +1,8 @@
-import AppAppBar from "@/components/AppBar";
+import AppBarClient from "@/components/AppBar/AppBar.client";
+import ArcticleCard from "@/components/ArcitleCard/ArcticeDetail";
 import Footer from "@/components/footer";
 import SwiperImg from "@/components/swiper/SwiperImg";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 export default function Home() {
   return (
@@ -12,12 +13,19 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      <AppAppBar></AppAppBar>
+      <AppBarClient></AppBarClient>
 
       {/* Main 内容部分 */}
-      <Box sx={{ flexGrow: 1, mt: 8 }} className="flex flex-col h-screen">
+      <Box sx={{ flexGrow: 1, mt: 8 }}>
         <SwiperImg></SwiperImg>
-        <h1> statrsat</h1>
+        <Container>
+          <Box sx={{ height: "25vh", mt: 5 }}>
+            <ArcticleCard></ArcticleCard>
+          </Box>
+          <Box sx={{ height: "25vh", mt: 5 }}>
+            <ArcticleCard></ArcticleCard>
+          </Box>
+        </Container>
       </Box>
       {/* Footer 底部部分 */}
       <Box
