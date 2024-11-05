@@ -1,5 +1,5 @@
 import AppBarClient from "@/components/AppBar/AppBar.client";
-import ArcticleCard from "@/components/ArcitleCard/ArcticeDetail";
+import ArcticleCard from "@/components/ArcitleCard/ArcticeCard";
 import Footer from "@/components/footer";
 import SwiperImg from "@/components/swiper/SwiperImg";
 import { Box, Container } from "@mui/material";
@@ -19,12 +19,14 @@ export default function Home() {
       <Box sx={{ flexGrow: 1, mt: 8 }}>
         <SwiperImg></SwiperImg>
         <Container>
-          <Box sx={{ height: "25vh", mt: 5 }}>
-            <ArcticleCard></ArcticleCard>
-          </Box>
-          <Box sx={{ height: "25vh", mt: 5 }}>
-            <ArcticleCard></ArcticleCard>
-          </Box>
+          <div>
+            <Box sx={{ mt: 5 }}>
+              <ArcticleCard></ArcticleCard>
+            </Box>
+            <Box sx={{ mt: 5 }}>
+              <ArcticleCard></ArcticleCard>
+            </Box>
+          </div>
         </Container>
       </Box>
       {/* Footer 底部部分 */}

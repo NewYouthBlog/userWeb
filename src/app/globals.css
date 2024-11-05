@@ -28,3 +28,21 @@ html ::-webkit-scrollbar-track {
 }
 html body {
 }
+.desktop-component {
+  display: block;
+}
+
+.mobile-component {
+  display: none;
+}
+
+/* 在小屏幕下，隐藏桌面版，显示手机版 */
+@media (max-width: 765px) {
+  .desktop-component {
+    display: none;
+  }
+
+  .mobile-component {
+    display: block;
+  }
+}
