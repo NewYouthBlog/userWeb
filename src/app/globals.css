@@ -27,6 +27,11 @@ html ::-webkit-scrollbar-track {
   display: none;
 }
 html body {
+  background: radial-gradient(
+    circle,
+    rgba(217, 255, 254, 1) 17%,
+    rgba(255, 235, 242, 1) 100%
+  );
 }
 .desktop-component {
   display: block;

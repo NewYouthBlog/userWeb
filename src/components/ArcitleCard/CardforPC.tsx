@@ -1,10 +1,10 @@
 "use client";
 import { Box, Grid2 } from "@mui/material";
-import { MagicCard } from "../ui/magic-card";
 import { article } from "@/@types/arctice";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { WobbleCard } from "../ui/wobble-card";
 interface props {
   data: article;
 }
@@ -24,9 +24,8 @@ export default function CardfoPC({ data }: props) {
           y: inView ? 0 : 100,
         }}
         transition={{ duration: 0.8 }}
-        style={{ height: "25vh" }}
       >
-        <MagicCard gradientColor="#ecfeff" className="flex items-center">
+        <WobbleCard containerClassName="bg-slate-50">
           <Grid2
             container
             columns={12}
@@ -74,15 +73,42 @@ export default function CardfoPC({ data }: props) {
                   {data.content}
                 </Box>
               </Grid2>
-              <Grid2 offset={{ xs: 2, sm: "auto", md: 3.2 }}>
-                <Box sx={{ color: "gray", fontSize: "0.85rem" }}>
+              <Grid2
+                container
+                sx={{ width: "100%" }}
+                justifyContent={"space-between"}
+                columns={12}
+                alignItems={"center"}
+              >
+                <Grid2
+                  sx={{
+                    marginLeft: {
+                      sm: 5,
+                      md: 8,
+                      lg: 10,
+                    },
+                  }}
+                >
+                  {data.tags.map((item, index) => {
+                    return (
+                      <button
+                        key={index}
+                        className="px-1 py-0.5 bg-customFg text-white  rounded  transform hover:-translate-y-1 transition duration-400 ml-1 text-sm"
+                      >
+                        {item}
+                      </button>
+                    );
+                  })}
+                </Grid2>
+
+                <Grid2 sx={{ color: "gray", fontSize: "0.85rem" }}>
                   <DriveFileRenameOutlineIcon></DriveFileRenameOutlineIcon>
                   {data.createdAt}
-                </Box>
+                </Grid2>
               </Grid2>
             </Grid2>
           </Grid2>
-        </MagicCard>
+        </WobbleCard>
       </motion.div>
     </div>
   );

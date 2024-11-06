@@ -19,14 +19,7 @@ export default function Home() {
       <Box sx={{ flexGrow: 1, mt: 8 }}>
         <SwiperImg></SwiperImg>
         <Container>
-          <div>
-            <Box sx={{ mt: 5 }}>
-              <ArcticleCard></ArcticleCard>
-            </Box>
-            <Box sx={{ mt: 5 }}>
-              <ArcticleCard></ArcticleCard>
-            </Box>
-          </div>
+          <ArcticleCard></ArcticleCard>
         </Container>
       </Box>
       {/* Footer 底部部分 */}
