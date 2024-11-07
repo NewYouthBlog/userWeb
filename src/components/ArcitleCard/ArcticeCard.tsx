@@ -31,16 +31,14 @@ export default function ArcticCard() {
       tags: ["golang", "python"],
     },
   ];
-  return (
-    <>
-      {data.map((item, index) => {
-        return (
-          <Box sx={{ mt: 4 }}>
-            <CardfoPC key={index} data={item}></CardfoPC>
-            <CardforMobile data={item}></CardforMobile>
-          </Box>
-        );
-      })}
-    </>
-  );
+
+  const listArticle = data.map((item, index) => {
+    return (
+      <Box sx={{ mt: 4 }} key={index}>
+        <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
+        <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
+      </Box>
+    );
+  });
+  return <>{listArticle}</>;
 }

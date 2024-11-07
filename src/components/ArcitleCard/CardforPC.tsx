@@ -55,7 +55,7 @@ export default function CardfoPC({ data }: props) {
               columns={4}
             >
               <Grid2 size={3} offset={{ xs: 0, sm: 0.5, md: 0.5 }}>
-                <h2>{data.title}</h2>
+                <h2 className="font-bold">{data.title}</h2>
               </Grid2>
               <Grid2
                 size={{ xs: 4, sm: 3, md: 3 }}
