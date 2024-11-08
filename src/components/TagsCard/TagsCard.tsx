@@ -4,6 +4,8 @@ import { TagsCard_client } from "./TagsCard-client";
 const tags = [
   { id: 1, name: "golang" },
   { id: 2, name: "python" },
+  { id: 3, name: "lua" },
+  { id: 4, name: "typescript" },
 ];
 
 export default function TagsCard() {
