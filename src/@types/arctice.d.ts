@@ -1,4 +1,5 @@
 export type article = {
+  id: number;
   imgurl: string;
   title: string;
   content: string;

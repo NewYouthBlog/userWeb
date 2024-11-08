@@ -1,5 +1,4 @@
-import AppBarClient from "@/components/AppBar/AppBar.client";
-import ArcticleCard from "@/components/ArcitleCard/ArcticeCard";
+import ArcticleCard from "@/components/ArticleCard/ArcticeCard";
 import Footer from "@/components/footer";
 import SwiperImg from "@/components/swiper/SwiperImg";
 import TagsCard from "@/components/TagsCard/TagsCard";
@@ -14,9 +13,7 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      <AppBarClient></AppBarClient>
-
-      {/* Main 内容部分 */}
+      {/* Main 内容部分,appbar部分在layout文件中 */}
       <Box sx={{ flexGrow: 1, mt: 8 }}>
         <SwiperImg></SwiperImg>
         <Container maxWidth={"xl"}>
@@ -37,7 +34,7 @@ export default function Home() {
       {/* Footer 底部部分 */}
       <Box
         component="footer"
-        sx={{ py: 2, backgroundColor: "transparent", color: "black" }}
+        sx={{ py: 2, mt: 8, backgroundColor: "transparent", color: "black" }}
       >
         <Footer></Footer>
       </Box>

@@ -2,11 +2,13 @@ import { article } from "@/@types/arctice";
 import CardfoPC from "./CardforPC";
 import CardforMobile from "./CardforMobile";
 import { Box } from "@mui/material";
+import Link from "next/link";
 
 export default function ArcticCard() {
   //FIX: use database
   const data: article[] = [
     {
+      id: 1,
       imgurl: "/2.jpg",
       createdAt: "2024-11-05",
       content:
@@ -15,6 +17,7 @@ export default function ArcticCard() {
       tags: ["golang", "python"],
     },
     {
+      id: 2,
       imgurl: "/2.jpg",
       createdAt: "2024-11-05",
       content:
@@ -23,6 +26,7 @@ export default function ArcticCard() {
       tags: ["golang", "python"],
     },
     {
+      id: 3,
       imgurl: "/2.jpg",
       createdAt: "2024-11-05",
       content:
@@ -34,10 +38,12 @@ export default function ArcticCard() {
 
   const listArticle = data.map((item, index) => {
     return (
-      <Box sx={{ mt: 4 }} key={index}>
-        <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
-        <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
-      </Box>
+      <Link key={index} href={`/articles/${item.id}`} passHref>
+        <Box sx={{ mt: 4 }} key={index}>
+          <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
+          <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
+        </Box>
+      </Link>
     );
   });
   return <>{listArticle}</>;

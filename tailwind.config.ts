@@ -10,9 +10,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        customBg: "#d9e2e7", // 自定义颜色
-        customFg: "#dd856d", // 自定义颜色
-        customGreen: "#38c172",
+        customBg: "#d9e2e7", // 自定义背景颜色
+        customFg: "#97cbe5", // 自定义主题颜色1
+        customFg2: "#4798c7", // 自定义主题颜色2
+        customFg3: "#538bb5", // 自定义主题颜色3
+        customFg4: "#afc9db", // 自定义主题颜色4
         // 你可以添加更多自定义颜色
       },
       fontFamily: {

@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <Container maxWidth="md">
       <Typography variant="body1" align="center">
-        &copy; 2024 My Website. All rights reserved.
+        © 星河的博客 2024
       </Typography>
     </Container>
   );
