@@ -37,10 +37,6 @@ export default function AppBarClient() {
     // 可以在这里添加更多的项目
   ];
 
-  const handleNavigation = (path: string) => {
-    router.push(path);
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <StyledAppBar position="fixed" color="transparent">
@@ -59,7 +55,7 @@ export default function AppBarClient() {
                     ? theme.palette.secondary.main
                     : theme.palette.secondary.contrastText,
               }}
-              onClick={() => handleNavigation(item.routerPath)}
+              onClick={() => router.push(item.routerPath)}
             >
               <Typography
                 component="div"

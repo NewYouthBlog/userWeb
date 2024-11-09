@@ -1,9 +1,10 @@
 interface props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function ({ params }: props) {
-  return <h1 className="mt-10">this is {params.id}</h1>;
+export default async function ({ params }: props) {
+  const { id } = await params;
+  return <h1 className="mt-8">this is {id}</h1>;
 }

@@ -41,7 +41,7 @@ export default function CardfoPC({ data }: props) {
               >
                 <img
                   src={data.imgurl}
-                  className="w-full h-full object-cover rounded"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </Box>
             </Grid2>
@@ -84,8 +84,8 @@ export default function CardfoPC({ data }: props) {
                   sx={{
                     marginLeft: {
                       sm: 5,
-                      md: 8,
-                      lg: 10,
+                      md: 4,
+                      lg: 8,
                     },
                   }}
                 >
