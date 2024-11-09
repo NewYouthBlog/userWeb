@@ -157,6 +157,11 @@
   padding: 12px;
   border-radius: 6px;
   overflow: auto;
+  width: 60%;
+  display: flex; /* 使用 Flexbox 布局 */
+  justify-content: center; /* 水平居中 */
+  margin: 20px auto; /* 自动设置左右外边距，确保整体居中 */
+  max-width: 80%; /* 可选：防止代码块太宽 */
 }
 #write picture img {
   border-radius: 6px;
@@ -397,15 +402,18 @@
 
 /* 表格样式 */
 #write table {
-  width: 100%;
+  width: 60%;
   border-collapse: collapse;
   margin-bottom: 1em;
+  margin: 20px auto; /* 设置表格的外边距，左右为 auto 实现水平居中 */
+  border-collapse: collapse; /* 可选：使表格边框合并，视觉效果更好 */
 }
 
 #write table th,
 #write table td {
   border: 1px solid #4b5263;
   padding: 8px;
+  text-align: center; /* 可选：让单元格内容居中对齐 */
 }
 
 #write table th {
