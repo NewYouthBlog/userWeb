@@ -1,7 +1,7 @@
 "use client";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import HomeIcon from "@mui/icons-material/Home";
-import { createTheme, styled, ThemeProvider } from "@mui/material";
+import { Button, createTheme, styled, ThemeProvider } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -43,10 +43,9 @@ export default function AppBarClient() {
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
           {pathMap.map((item, index) => (
-            <IconButton
+            <Button
               key={index} // 使用唯一的 key
               size="small"
-              edge="end"
               aria-label={item.labelText}
               sx={{
                 mr: 2,
@@ -81,7 +80,7 @@ export default function AppBarClient() {
                 {item.icon}
                 {item.labelText}
               </Typography>
-            </IconButton>
+            </Button>
           ))}
         </Toolbar>
       </StyledAppBar>

@@ -1,4 +1,5 @@
 import MarkdownRenderer from "@/components/MarkDownRender/MarkDownRender";
+import { Container } from "@mui/material";
 
 interface props {
   params: Promise<{
@@ -29,7 +30,7 @@ export default async function ({ params }: props) {
 | 内容三 | 内容四 |
 
 ## 代码块示例
-\`\`\`python
+\`\`\`javascript
 function greet(name) {
   console.log("Hello, " + name + "!");
 }
@@ -38,5 +39,9 @@ print("eitsnaro")
 \`\`\`
 I **love** using [Next.js](https://nextjs.org/)
 `;
-  return <MarkdownRenderer content={content}></MarkdownRenderer>;
+  return (
+    <Container sx={{ mt: 8 }}>
+      <MarkdownRenderer content={content}></MarkdownRenderer>
+    </Container>
+  );
 }
