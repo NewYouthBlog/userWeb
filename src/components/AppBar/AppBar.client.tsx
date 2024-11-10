@@ -21,8 +21,8 @@ const theme = createTheme({
   },
 });
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  // backdropFilter: "blur(10px)", // 设置模糊效果
-  // backgroundColor: "rgba(255, 255, 255, 0.3)", // 设置半透明背景
+  backdropFilter: "blur(10px)", // 设置模糊效果
+  backgroundColor: "rgba(255, 255, 255, 0.3)", // 设置半透明背景
   boxShadow: "none",
 }));
 
