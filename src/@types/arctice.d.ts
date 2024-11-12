@@ -1,8 +1,13 @@
+import { tags } from "./tag";
+
 export type article = {
   id: number;
-  imgurl: string;
+  image: string;
   title: string;
   content: string;
   createdAt: string;
-  tags: string[];
+  tags: tags[];
+  HeadImg?: string;
+  createdAt: string;
+  updatedAt: string;
 };

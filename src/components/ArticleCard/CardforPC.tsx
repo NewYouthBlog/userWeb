@@ -40,7 +40,7 @@ export default function CardfoPC({ data }: props) {
                 }}
               >
                 <img
-                  src={data.imgurl}
+                  src={data.image}
                   className="w-full h-full object-cover rounded-xl"
                 />
               </Box>
@@ -95,7 +95,7 @@ export default function CardfoPC({ data }: props) {
                         key={index}
                         className="px-1 py-0.5 bg-customFg text-white  rounded  transform hover:-translate-y-1 transition duration-400 ml-1 text-sm"
                       >
-                        {item}
+                        {item.name}
                       </button>
                     );
                   })}

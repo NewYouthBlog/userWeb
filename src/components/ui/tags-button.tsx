@@ -1,15 +1,6 @@
-export default function TagsButton({
-  tagsName,
-  Click,
-}: {
-  tagsName: string;
-  Click?: React.MouseEventHandler<HTMLButtonElement>;
-}) {
+export default function TagsButton({ tagsName }: { tagsName?: string }) {
   return (
-    <button
-      className="tag flex items-center px-3 py-1 text-sm font-medium text-gray-700 bg-customFg4 rounded-xl"
-      onClick={Click}
-    >
+    <button className="tag flex items-center px-3 py-1 text-sm font-medium text-gray-700 bg-customFg4 rounded-xl">
       {tagsName}
     </button>
   );

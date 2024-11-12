@@ -6,6 +6,7 @@ import { tags } from "@/@types/tag";
 import TagsButton from "../ui/tags-button";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 interface props {
   data: tags[];
 }
@@ -35,10 +36,11 @@ export function TagsCard_client({ data }: props) {
           {data.map((item, index) => {
             return (
               <div className="flex flex-wrap gap-1 p-2 " key={index}>
-                <TagsButton
-                  tagsName={item.name}
-                  Click={() => router.push(`/tags/${item.name}`)}
-                ></TagsButton>
+                <Link href={`/tags/${item.name}`} legacyBehavior>
+                  <a target="_blank">
+                    <TagsButton tagsName={item.name}></TagsButton>
+                  </a>
+                </Link>
               </div>
             );
           })}
