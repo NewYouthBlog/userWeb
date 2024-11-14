@@ -8,7 +8,7 @@ import { AxiosResponse } from "axios";
 import { resData } from "@/@types/response";
 
 export default async function ArcticCard() {
-  const res: AxiosResponse<resData<article>> = await request.get(
+  const res: AxiosResponse<resData<article[], "articles">> = await request.get(
     "/articles?page=1&limit=10&status=1",
   );
 

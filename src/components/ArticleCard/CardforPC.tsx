@@ -70,7 +70,7 @@ export default function CardfoPC({ data }: props) {
                     overflow: "hidden",
                   }}
                 >
-                  {data.content}
+                  {data.content.slice(0, 50)}
                 </Box>
               </Grid2>
               <Grid2
@@ -103,7 +103,7 @@ export default function CardfoPC({ data }: props) {
 
                 <Grid2 sx={{ color: "gray", fontSize: "0.85rem" }}>
                   <DriveFileRenameOutlineIcon></DriveFileRenameOutlineIcon>
-                  {data.createdAt}
+                  {data.createdAt.slice(0, 10)}
                 </Grid2>
               </Grid2>
             </Grid2>

@@ -15,10 +15,10 @@ export default function CardforMobile({ data }: props) {
     <div className=" md:hidden flex justify-center">
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
-          <CardMedia component="img" height="140" image={data.imgurl} />
+          <CardMedia component="img" height="140" image={data.image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {data.title}
+              {data.title.slice(0, 50)}
             </Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {data.content}
