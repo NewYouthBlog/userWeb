@@ -1,4 +1,4 @@
-import ArcticleCard from "@/components/ArticleCard/ArcticeCard";
+import ArtcileCard from "@/components/ArticleCard/ArticleCard";
 import Footer from "@/components/footer";
 import SwiperImg from "@/components/swiper/SwiperImg";
 import TagsCard from "@/components/TagsCard/TagsCard";
@@ -25,7 +25,7 @@ export default function Home() {
         <Container maxWidth={"xl"}>
           <Grid2 container justifyContent={"center"} columns={24}>
             <Grid2 size={{ sm: 20, md: 14, lg: 15 }}>
-              <ArcticleCard></ArcticleCard>
+              <ArtcileCard></ArtcileCard>
             </Grid2>
             <Grid2
               size={{ sm: 0, md: 6, lg: 6 }}

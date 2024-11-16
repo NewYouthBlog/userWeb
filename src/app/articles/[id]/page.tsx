@@ -16,8 +16,6 @@ export default async function ({ params }: props) {
   const res: AxiosResponse<resData<article>> = await request.get(
     `/articles/${id}`,
   );
-  console.log(res.data);
-
   return (
     <Container sx={{ mt: 8 }}>
       <MarkdownRenderer content={res.data.data.content}></MarkdownRenderer>

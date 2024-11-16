@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid2, Pagination } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { article } from "@/@types/arctice";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { useInView } from "react-intersection-observer";
