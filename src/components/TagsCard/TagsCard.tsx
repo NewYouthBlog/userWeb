@@ -1,13 +1,9 @@
+import request from "@/lib/request";
 import { TagsCard_client } from "./TagsCard-client";
+import { AxiosResponse } from "axios";
+import { tags } from "@/@types/tag";
 
-//FIX: use database
-const tags = [
-  { id: 1, name: "golang" },
-  { id: 2, name: "python" },
-  { id: 3, name: "lua" },
-  { id: 4, name: "typescript" },
-];
-
-export default function TagsCard() {
-  return <TagsCard_client data={tags}></TagsCard_client>;
+export default async function TagsCard() {
+  const res: AxiosResponse<{ data: tags[] }> = await request.get("/tags");
+  return <TagsCard_client data={res.data.data}></TagsCard_client>;
 }

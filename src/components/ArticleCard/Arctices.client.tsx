@@ -14,17 +14,20 @@ interface props {
     articles: article[];
     total: number;
   };
+  urlPrefix: string;
 }
 
-export default function Arctices({ data }: props) {
+export default function Arctices({ data, urlPrefix }: props) {
   const [page, setPage] = useState(1);
   const [articles, setArticles] = useState<article[]>(data.articles);
   const [total] = useState(data.total);
+  const urlprefix =
+    urlPrefix === "articles" ? "/articles" : `/articles/tags/${urlPrefix}`;
 
   useEffect(() => {
     async function fetchData() {
       const res: AxiosResponse<resData<article[], "articles">> =
-        await request.get(`/articles?page=${page}&limit=10&status=1`);
+        await request.get(`${urlprefix}?page=${page}&limit=10&status=1`);
       setArticles(res.data.data.articles);
     }
     fetchData();
@@ -55,6 +58,7 @@ export default function Arctices({ data }: props) {
         <Pagination
           onChange={(event, value) => {
             setPage(value);
+            window.scrollTo(0, 0);
           }}
           count={Math.ceil(total / 10)}
           color="primary"

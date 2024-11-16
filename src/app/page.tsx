@@ -25,7 +25,7 @@ export default function Home() {
         <Container maxWidth={"xl"}>
           <Grid2 container justifyContent={"center"} columns={24}>
             <Grid2 size={{ sm: 20, md: 14, lg: 15 }}>
-              <ArtcileCard></ArtcileCard>
+              <ArtcileCard urlPrefix="articles"></ArtcileCard>
             </Grid2>
             <Grid2
               size={{ sm: 0, md: 6, lg: 6 }}

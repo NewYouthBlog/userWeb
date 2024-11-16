@@ -29,7 +29,7 @@ export default function AppBarClient() {
   const router = useRouter();
   const pathname = usePathname();
 
-  //FIX:使用后端,最好是写道上一层组件，保证ssr
+  //WARN:使用后端,最好是写道上一层组件，保证ssr
   const pathMap = [
     { labelText: "主页", icon: <HomeIcon />, routerPath: "/" },
     { labelText: "归档", icon: <ArchiveIcon />, routerPath: "/archive" }, // 假设还有其他图标

@@ -1,4 +1,4 @@
-import ArcticCard from "@/components/ArticleCard/ArcticeCard";
+import ArcticCard from "@/components/ArticleCard/ArticleCard";
 import PageHeader from "@/components/common/PageHeader";
 import TypingAnimation from "@/components/ui/typing-animation";
 import { Container } from "@mui/material";
@@ -19,8 +19,7 @@ export default async function ({ params }: props) {
         ></TypingAnimation>
       </PageHeader>
       <Container>
-        {/* FIX: 此处应改成直接传url  */}
-        <ArcticCard></ArcticCard>
+        <ArcticCard urlPrefix={tagname}></ArcticCard>
       </Container>
     </>
   );
