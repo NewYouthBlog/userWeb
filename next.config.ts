@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
         hostname: "assets.aceternity.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "pic.52112.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "aioseo.com",
+        pathname: "/**",
+      },
     ],
   },
 };

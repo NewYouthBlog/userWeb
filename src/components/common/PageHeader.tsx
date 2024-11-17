@@ -9,7 +9,7 @@ export default function PageHeader({
     <Box
       sx={{
         mt: 8,
-        width: "100vw",
+        width: "auto",
         height: "40vh",
         display: "flex",
         justifyContent: "center",
