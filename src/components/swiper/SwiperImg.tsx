@@ -5,14 +5,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import BlurIn from "@/components/ui/blur-in";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./swiper.css";
+import request from "@/lib/request";
+import { AxiosResponse } from "axios";
+import { resData } from "@/@types/response";
+import { article } from "@/@types/arctice";
 
 //FIX: use database
-const item = [
-  { src: "/1.jpg", title: "测试第一关" },
-  { src: "/2.jpg", title: " 测试第to关" },
-];
 
 export default function SwiperImg() {
   const [showNavigation, setShowNavigation] = useState(false);
@@ -23,6 +23,18 @@ export default function SwiperImg() {
   const handledisshouwnavigation = () => {
     setShowNavigation(false);
   };
+
+  const [headline, setHeadline] = useState<article[]>([]);
+
+  useEffect(() => {
+    const fetchHeadline = async () => {
+      const res: AxiosResponse<resData<article[], "articles">> =
+        await request.get("/headline");
+      setHeadline(res.data.data.articles);
+    };
+    fetchHeadline();
+  }, [headline]);
+
   return (
     <div
       onMouseEnter={handleshouwnavigation}
@@ -39,11 +51,11 @@ export default function SwiperImg() {
         // style={{ height: "50vh", width: "100%" }}
         className="swiper-container"
       >
-        {item.map((value, index) => (
+        {headline.map((value, index) => (
           <SwiperSlide key={index}>
             <a>
               <img
-                src={value.src}
+                src={value.HeadImg}
                 style={{
                   width: "100%", // 使图片宽度适应容器
                   height: "100%", // 使图片高度适应容器

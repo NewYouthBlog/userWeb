@@ -48,28 +48,32 @@ export default function Arctices({ data, urlPrefix }: props) {
   return (
     <>
       {listArticle}
-      <Box
-        sx={{
-          mt: 5,
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Pagination
-          onChange={(event, value) => {
-            setPage(value);
-            window.scrollTo(0, 0);
-          }}
-          count={Math.ceil(total / 10)}
-          color="primary"
+      {total < 10 ? (
+        ""
+      ) : (
+        <Box
           sx={{
-            "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: "#538bb5", // 选中状态颜色
-              color: "white", // 选中文字颜色
-            },
+            mt: 5,
+            display: "flex",
+            justifyContent: "flex-end",
           }}
-        />
-      </Box>
+        >
+          <Pagination
+            onChange={(event, value) => {
+              setPage(value);
+              window.scrollTo(0, 0);
+            }}
+            count={Math.ceil(total / 10)}
+            color="primary"
+            sx={{
+              "& .MuiPaginationItem-root.Mui-selected": {
+                backgroundColor: "#538bb5", // 选中状态颜色
+                color: "white", // 选中文字颜色
+              },
+            }}
+          />
+        </Box>
+      )}
     </>
   );
 }

@@ -15,7 +15,6 @@ export default async function ArtcileCard({ urlPrefix }: dataUrl) {
       : `/articles/tags/${urlPrefix}?page=1&limit=10&status=1`;
   const res: AxiosResponse<resData<article[], "articles">> =
     await request.get(url);
-  console.log(url);
   const data = {
     articles: res.data.data.articles,
     total: res.data.data.total,
