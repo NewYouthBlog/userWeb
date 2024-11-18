@@ -1,4 +1,5 @@
 import ArtcileCard from "@/components/ArticleCard/ArticleCard";
+import Affix from "@/components/common/Affix";
 import SwiperImg from "@/components/swiper/SwiperImg";
 import TagsCard from "@/components/TagsCard/TagsCard";
 import { Box, Container, Grid2 } from "@mui/material";
