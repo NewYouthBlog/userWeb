@@ -97,3 +97,4 @@ services:
 
 - `PORT`: 应用程序的访问端口 (默认: 3000)。
 - `DATABASE_URL`: 您的数据库连接字符串。
+- `NEXT_PUBLIC_BASE_URL`: 后端 API 地址 (例如 `http://192.168.1.100:3001`)。

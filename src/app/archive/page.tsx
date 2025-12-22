@@ -9,6 +9,8 @@ import Link from "next/link";
 import BlurIn from "@/components/ui/blur-in";
 import { Box, Typography } from "@mui/material";
 
+export const dynamic = "force-dynamic";
+
 export default async function ArchivePage() {
   const res: AxiosResponse<resData<archIve[]>> = await request.get("/archive");
   const data = res.data.data.map((value, index) => {
