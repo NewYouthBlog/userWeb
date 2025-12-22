@@ -3,7 +3,9 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import HomeIcon from "@mui/icons-material/Home";
 import { Button, createTheme, styled, ThemeProvider } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
+import { motion, AnimatePresence } from "framer-motion";
 import Box from "@mui/material/Box";
+import React, { useState, useEffect } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { usePathname, useRouter } from "next/navigation";
@@ -28,6 +30,18 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 export default function AppBarClient() {
   const router = useRouter();
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
+
+  const handleNavigation = (path: string) => {
+    if (pathname !== path) {
+      setIsLoading(true);
+    }
+    router.push(path);
+  };
 
   //WARN:使用后端,最好是写道上一层组件，保证ssr
   const pathMap = [
@@ -53,7 +67,7 @@ export default function AppBarClient() {
                     ? theme.palette.secondary.main
                     : theme.palette.secondary.contrastText,
               }}
-              onClick={() => router.push(item.routerPath)}
+              onClick={() => handleNavigation(item.routerPath)}
             >
               <Typography
                 component="div"
@@ -82,7 +96,25 @@ export default function AppBarClient() {
             </Button>
           ))}
         </Toolbar>
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div
+              initial={{ width: "0%", opacity: 1 }}
+              animate={{ width: "80%", opacity: 1 }}
+              exit={{ width: "100%", opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                height: "3px",
+                background: "linear-gradient(90deg, #60a5fa, #a78bfa)",
+                zIndex: 9999,
+              }}
+            />
+          )}
+        </AnimatePresence>
       </StyledAppBar>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }

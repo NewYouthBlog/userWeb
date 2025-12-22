@@ -13,7 +13,7 @@ import { Box, Container, Grid2 } from "@mui/material";
 export default function Home() {
   return (
     <>
-      {/* Main 内容部分,appbar部分在layout文件中 */}
+      {/* Main 内容部分 */}
       <Box sx={{ flexGrow: 1, mt: 8 }}>
         <SwiperImg></SwiperImg>
         <Container maxWidth={"xl"}>

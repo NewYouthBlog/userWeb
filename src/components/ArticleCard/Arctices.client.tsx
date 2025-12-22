@@ -37,7 +37,7 @@ export default function Arctices({ data, urlPrefix }: props) {
     return (
       <Link key={index} href={`/articles/${item.id}`} legacyBehavior>
         <a target="_blank">
-          <Box sx={{ mt: 4 }} key={index}>
+          <Box component="article" sx={{ mt: 4 }} key={index}>
             <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
             <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
           </Box>

@@ -1,38 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @font-face {
   font-family: "Consolas";
   src: url("/fonts/consolas.ttf") format("ttf");
 }
+
 html ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 html ::-webkit-scrollbar-thumb {
-  background-color: #efbcda;
-  background-image: -webkit-linear-gradient(
-    45deg,
-    rgb(171, 245, 218) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgb(150, 212, 236) 50%,
-    rgb(239, 147, 228) 75%,
-    transparent 75%,
-    transparent
-  );
-  border-radius: 2em;
+  background: linear-gradient(180deg, #60a5fa 0%, #a78bfa 100%);
+  border-radius: 99px;
 }
+
 html ::-webkit-scrollbar-track {
   display: none;
 }
+
 html body {
-  background: radial-gradient(
-    circle,
-    rgba(217, 255, 254, 1) 15%,
-    rgba(255, 235, 242, 1) 110%
-  );
+  /* Tech/Aurora Gradient: Light mesh of Cyan, Blue, and Violet */
+  background-color: #f8fafc;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(165, 243, 252, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(196, 181, 253, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(165, 243, 252, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(196, 181, 253, 0.3) 0px, transparent 50%);
+  background-attachment: fixed;
 }
+
 .desktop-component {
   display: block;
 }
