@@ -93,12 +93,12 @@ export default function CardfoPC({ data }: props) {
                 >
                   {data.tags.map((item, index) => {
                     return (
-                      <button
+                      <span
                         key={index}
                         className="px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded-full shadow-sm hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transform hover:-translate-y-0.5 transition-all duration-300 ml-2 text-xs font-semibold tracking-wide"
                       >
                         {item.name}
-                      </button>
+                      </span>
                     );
                   })}
                 </Grid2>

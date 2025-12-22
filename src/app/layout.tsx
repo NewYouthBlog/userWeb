@@ -3,6 +3,7 @@ import "./globals.css";
 import AppBarClient from "@/components/AppBar/AppBar.client";
 import Footer from "@/components/footer";
 import { Box } from "@mui/material";
+import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 
 export const metadata: Metadata = {
   title: {
@@ -42,29 +43,31 @@ export default function RootLayout({
   return (
     <html lang="zh_CN">
       <body>
-        <AppBarClient></AppBarClient>
-        <Box
-          component="main"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "85vh",
-          }}
-        >
-          {children}
-        </Box>
-        {/* Footer 底部部分 */}
-        <Box
-          component="footer"
-          sx={{
-            py: 2,
-            mt: 8,
-            backgroundColor: "transparent",
-            color: "black",
-          }}
-        >
-          <Footer></Footer>
-        </Box>
+        <ThemeRegistry>
+          <AppBarClient></AppBarClient>
+          <Box
+            component="main"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "85vh",
+            }}
+          >
+            {children}
+          </Box>
+          {/* Footer 底部部分 */}
+          <Box
+            component="footer"
+            sx={{
+              py: 2,
+              mt: 8,
+              backgroundColor: "transparent",
+              color: "black",
+            }}
+          >
+            <Footer></Footer>
+          </Box>
+        </ThemeRegistry>
       </body>
     </html>
   );

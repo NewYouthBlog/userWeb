@@ -39,10 +39,10 @@ export function TagsCard_client({ data }: props) {
               {data.map((item, index) => {
                 return (
                   <div className="flex flex-wrap gap-1 p-2 " key={index}>
-                    <Link href={`/tags/${item.name}`} legacyBehavior>
-                      <a target="_blank">
-                        <TagsButton tagsName={item.name}></TagsButton>
-                      </a>
+                    <Link href={`/tags/${item.name}`} target="_blank">
+
+                      <TagsButton tagsName={item.name}></TagsButton>
+
                     </Link>
                   </div>
                 );

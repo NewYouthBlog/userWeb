@@ -14,17 +14,15 @@ export default function CardforMobile({ data }: props) {
   return (
     <div className=" md:hidden flex justify-center">
       <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia component="img" height="140" image={data.image} />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {data.title.slice(0, 50)}
-            </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              {data.content}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <CardMedia component="img" height="140" image={data.image} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {data.title.slice(0, 50)}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            {data.content}
+          </Typography>
+        </CardContent>
         {/* <CardActions> */}
         {/*   <Button size="small" color="primary"> */}
         {/**/}

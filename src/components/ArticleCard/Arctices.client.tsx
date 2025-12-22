@@ -35,13 +35,13 @@ export default function Arctices({ data, urlPrefix }: props) {
 
   const listArticle = articles.map((item, index) => {
     return (
-      <Link key={index} href={`/articles/${item.id}`} legacyBehavior>
-        <a target="_blank">
-          <Box component="article" sx={{ mt: 4 }} key={index}>
-            <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
-            <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
-          </Box>
-        </a>
+      <Link key={index} href={`/articles/${item.id}`} target="_blank">
+
+        <Box component="article" sx={{ mt: 4 }} key={index}>
+          <CardfoPC key={`${index}-pc`} data={item}></CardfoPC>
+          <CardforMobile key={`${index}-mob`} data={item}></CardforMobile>
+        </Box>
+
       </Link>
     );
   });
