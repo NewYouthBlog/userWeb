@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const baseUrl = process.env.API_URL || "http://localhost:3001";
+const baseUrl =
+  process.env.API_URL ||
+  (process.env.NEXT_PUBLIC_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/api`
+    : "http://localhost:3000/api");
 
 const request = axios.create({
   baseURL: baseUrl,
