@@ -10,6 +10,9 @@ import { Box, Container, Grid2 } from "@mui/material";
 // lg (large): 从 1280px 到 1919.99px 笔记本
 // xl (extra-large): 大于或等于 1920px 2k
 //
+
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
