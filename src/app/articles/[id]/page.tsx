@@ -13,6 +13,8 @@ interface props {
   }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(
   { params }: props,
   parent: ResolvingMetadata

@@ -5,6 +5,8 @@ import { article } from "@/@types/arctice";
 // Helper to get base URL
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Static routes
     const routes = [
