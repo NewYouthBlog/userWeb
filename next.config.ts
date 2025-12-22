@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "aioseo.com",
         pathname: "/**",
+      }, {
+        protocol: "https",
+        hostname: "img.xinqingnian.art",
+        pathname: "/**",
       },
     ],
   },

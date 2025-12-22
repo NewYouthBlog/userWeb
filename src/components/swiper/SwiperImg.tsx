@@ -53,7 +53,7 @@ export default function SwiperImg() {
       >
         {headline.map((value, index) => (
           <SwiperSlide key={index}>
-            <a>
+            <a href={`/articles/${value.id}`} target="_blank">
               <img
                 src={value.HeadImg}
                 style={{

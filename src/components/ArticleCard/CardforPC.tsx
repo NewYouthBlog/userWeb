@@ -5,6 +5,7 @@ import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutli
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import { WobbleCard } from "../ui/wobble-card";
+import { removeMarkdown } from "@/lib/utils";
 interface props {
   data: article;
 }
@@ -40,7 +41,7 @@ export default function CardfoPC({ data }: props) {
                 }}
               >
                 <img
-                  src={data.image}
+                  src={data.HeadImg ? data.HeadImg : data.image}
                   className="w-full h-full object-cover rounded-xl"
                 />
               </Box>
@@ -72,7 +73,7 @@ export default function CardfoPC({ data }: props) {
                     overflow: "hidden",
                   }}
                 >
-                  {data.content.slice(0, 50)}
+                  {removeMarkdown(data.content).slice(0, 50)}
                 </Box>
               </Grid2>
               <Grid2
