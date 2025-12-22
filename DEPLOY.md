@@ -14,7 +14,7 @@
     - `public/`
     - `next.config.ts`
     - `package.json`
-    - `yarn.lock` (或 `package-lock.json`)
+    - `yarn.lock` (or `package-lock.json`)
     - `Dockerfile`
     - `.dockerignore`
     - `docker-compose.yml`
@@ -34,6 +34,43 @@
 3.  **验证**：
     应用程序现在应该在 `3000` 端口（或您配置的端口）上运行。您可以通过以下方式访问验证：
     `http://<您的服务器IP>:3000`
+
+## Nginx 反向代理配置
+
+要在生产环境中使用域名访问，建议配置 Nginx 反向代理。
+
+1.  确保服务器已安装 Nginx。
+2.  在 `/etc/nginx/sites-available/` 下创建一个新文件（例如 `my-next-app`），并写入以下配置：
+
+    ```nginx
+    server {
+        listen 80;
+        server_name your-domain.com; # 替换为您的域名
+
+        location / {
+            proxy_pass http://localhost:3000; # 对应 docker-compose 中映射的端口
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+    ```
+
+3.  创建软链接启用配置：
+    ```bash
+    ln -s /etc/nginx/sites-available/my-next-app /etc/nginx/sites-enabled/
+    ```
+
+4.  测试并重载 Nginx：
+    ```bash
+    nginx -t
+    systemctl reload nginx
+    ```
 
 ## 更新
 
