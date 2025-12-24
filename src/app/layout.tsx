@@ -7,26 +7,26 @@ import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 
 export const metadata: Metadata = {
   title: {
-    default: "李星河的个人博客",
-    template: "%s | 李星河的个人博客",
+    default: "新青年talks",
+    template: "%s | 新青年talks",
   },
   description: "分享编程技术、生活感悟和个人项目的展示平台",
-  keywords: ["博客", "李星河", "前端开发", "全栈开发", "技术分享", "编程"],
+  keywords: ["博客", "李星河", "前端开发", "全栈开发", "技术分享", "编程", "新青年talks"],
   authors: [{ name: "李星河" }],
   creator: "李星河",
   publisher: "李星河",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
   openGraph: {
-    title: "李星河的个人博客",
+    title: "新青年talks",
     description: "分享编程技术、生活感悟和个人项目的展示平台",
     url: "/",
-    siteName: "李星河的个人博客",
+    siteName: "新青年talks",
     locale: "zh_CN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "李星河的个人博客",
+    title: "新青年talks",
     description: "分享编程技术、生活感悟和个人项目的展示平台",
   },
   robots: {

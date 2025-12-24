@@ -83,7 +83,13 @@ docker compose up -d --build
 
 ## 环境变量
 
-如果服务器上需要环境变量（例如 API 密钥），请创建一个 `.env.production` 文件（或 `.env`），并在 `docker-compose.yml` 的 `env_file` 下引用它：
+如果服务器上需要环境变量（例如 API 密钥），请将 `.env.example` 复制为 `.env.production` (或 `.env`) 并填入实际值。
+
+```bash
+cp .env.example .env.production
+```
+
+并在 `docker-compose.yml` 的 `env_file` 下引用它：
 
 ```yaml
 services:
@@ -93,8 +99,9 @@ services:
       - .env.production
 ```
 
-### 常用变量
+### 常用变量说明
 
-- `PORT`: 应用程序的访问端口 (默认: 3000)。
-- `DATABASE_URL`: 您的数据库连接字符串。
-- `NEXT_PUBLIC_BASE_URL`: 后端 API 地址 (例如 `http://192.168.1.100:3001`)。
+参照 `.env.example` 文件：
+
+- `NEXT_PUBLIC_BASE_URL`:用于前端页面在浏览器中访问后端API或资源的基础URL。在本地开发时通常是 `http://localhost:3000`，生产环境应修改为您的实际域名，如 `https://your-domain.com`。
+- `API_URL`: 服务器端（如 `getStaticProps` 或 API 路由）访问后端接口的内部 URL。如果是同构应用且后端在同一 Docker 网络或本机，可以使用 `http://localhost:3000/api` 或者容器间通信地址。

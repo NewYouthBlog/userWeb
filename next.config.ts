@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       }, {
         protocol: "https",
-        hostname: "img.xinqingnian.art",
+        hostname: "img.neotalks.org",
         pathname: "/**",
       },
     ],
