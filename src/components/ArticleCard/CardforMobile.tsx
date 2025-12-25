@@ -20,7 +20,7 @@ export default function CardforMobile({ data }: props) {
             {data.title.slice(0, 50)}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {removeMarkdown(data.content)}
+            {removeMarkdown(data.content).slice(0, 50)}
           </Typography>
         </CardContent>
         {/* <CardActions> */}

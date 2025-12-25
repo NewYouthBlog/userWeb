@@ -17,30 +17,34 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   { params }: props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { id } = await params;
 
   // fetch data
   try {
     const res: AxiosResponse<resData<article>> = await request.get(
-      `/articles/${id}`
+      `/articles/${id}`,
     );
     const articleData = res.data.data;
 
     return {
       title: articleData.title,
-      description: articleData.content.slice(0, 160),
+      description: articleData.content.slice(0, 160) + "...",
       openGraph: {
         title: articleData.title,
-        description: articleData.content.slice(0, 160),
-        images: [articleData.image || articleData.HeadImg || "/images/default-cover.jpg"],
+        description: articleData.content.slice(0, 160) + "...",
+        images: [
+          articleData.image ||
+            articleData.HeadImg ||
+            "/images/default-cover.jpg",
+        ],
       },
-    }
+    };
   } catch (error) {
     return {
       title: "Article Not Found",
-    }
+    };
   }
 }
 
