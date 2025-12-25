@@ -11,9 +11,7 @@ interface props {
   }>;
 }
 
-export async function generateMetadata(
-  { params }: props
-): Promise<Metadata> {
+export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { tagname } = await params;
   const decodedTag = decodeURIComponent(tagname);
   return {
@@ -32,7 +30,7 @@ export default async function ({ params }: props) {
     <>
       <PageHeader>
         <TypingAnimation
-          text={tagname}
+          text={decodeURIComponent(tagname)}
           className="text-5xl font-bold text-white"
         ></TypingAnimation>
       </PageHeader>
