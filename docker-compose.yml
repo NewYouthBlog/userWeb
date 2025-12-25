@@ -13,8 +13,8 @@ services:
       - NODE_ENV=production
       # [关键] 给服务端 Node.js 用的内部地址
       # 注意：这里写的是你后端容器在 docker-compose 里的服务名！
-      # 假设你的后端服务名叫 "backend_server"，端口是 3000
-      - INTERNAL_API_URL=http://blog_server:3000
+      # 假设你的后端服务名叫 "backend_server"，端口是 3001
+      - INTERNAL_API_URL=http://blog_server:3001
     # Load environment variables from a .env file
     env_file:
       - .env
