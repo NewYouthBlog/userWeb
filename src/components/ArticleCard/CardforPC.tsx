@@ -73,7 +73,7 @@ export default function CardfoPC({ data }: props) {
                     overflow: "hidden",
                   }}
                 >
-                  {removeMarkdown(data.content).slice(0, 50)}
+                  {removeMarkdown(data.content).slice(0, 50) + "..."}
                 </Box>
               </Grid2>
               <Grid2
@@ -104,7 +104,15 @@ export default function CardfoPC({ data }: props) {
                   })}
                 </Grid2>
 
-                <Grid2 sx={{ color: "rgb(148 163 184)", fontSize: "0.8rem", display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Grid2
+                  sx={{
+                    color: "rgb(148 163 184)",
+                    fontSize: "0.8rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                  }}
+                >
                   <DriveFileRenameOutlineIcon></DriveFileRenameOutlineIcon>
                   {data.createdAt.slice(0, 10)}
                 </Grid2>
