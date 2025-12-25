@@ -18,3 +18,11 @@ services:
     # Load environment variables from a .env file
     env_file:
       - .env
+    # 加入后端所在的网络
+    networks:
+      - blog_network
+
+networks:
+  blog_network:
+    external: true
+    name: server_blog_network
