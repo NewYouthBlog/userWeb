@@ -13,18 +13,19 @@ interface props {
 export default function CardfoPC({ data }: props) {
   const { ref, inView } = useInView({
     triggerOnce: true, // 触发一次
-    threshold: 0.3, // 当元素 50% 显示在视口时触发
+    threshold: 0.1, // 降低阈值，当元素 10% 显示在视口时就触发
+    rootMargin: "100px 0px", // 提前 100px 触发动画
   });
   return (
     <div className="hidden md:block ">
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 100 }}
+        initial={{ opacity: 0, y: 50 }}
         animate={{
           opacity: inView ? 1 : 0,
-          y: inView ? 0 : 100,
+          y: inView ? 0 : 50,
         }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <WobbleCard containerClassName="bg-white/80 backdrop-blur-md border border-white/40 shadow-xl rounded-2xl hover:shadow-[0_20px_50px_rgba(99,102,241,0.3)] transition-shadow duration-500">
           <Grid2
