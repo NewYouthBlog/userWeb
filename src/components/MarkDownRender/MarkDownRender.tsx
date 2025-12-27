@@ -63,11 +63,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
     });
 
     // 为所有图片添加点击预览功能
-    const images = document.querySelectorAll("#write img");
+    const images = document.querySelectorAll<HTMLImageElement>("#write img");
     images.forEach((img) => {
       img.style.cursor = "pointer";
       img.addEventListener("click", () => {
-        setPreviewImage((img as HTMLImageElement).src);
+        setPreviewImage(img.src);
         setScale(1);
       });
     });
