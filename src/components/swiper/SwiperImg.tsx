@@ -30,7 +30,7 @@ export default function SwiperImg() {
     const fetchHeadline = async () => {
       const res: AxiosResponse<resData<article[], "articles">> =
         await request.get("/headline");
-      setHeadline(res.data.data.articles);
+      setHeadline(res.data.data.articles.reverse());
     };
     fetchHeadline();
   }, []);

@@ -29,6 +29,7 @@ export default async function ArchivePage() {
                       position: "relative",
                       justifyContent: "center",
                       alignItems: "center",
+                      overflow: "hidden",
                     }}
                   >
                     <Image
@@ -43,7 +44,17 @@ export default async function ArchivePage() {
                       sx={{
                         position: "absolute",
                         color: "black",
-                        fontSize: 20,
+                        fontSize: { xs: 14, sm: 16, md: 20 },
+                        fontWeight: 600,
+                        textAlign: "center",
+                        px: 2,
+                        maxWidth: "100%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        wordBreak: "break-word",
                       }}
                     >
                       {item.title}
