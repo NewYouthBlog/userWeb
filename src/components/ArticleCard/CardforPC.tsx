@@ -1,63 +1,84 @@
 "use client";
+
 import { Box, Grid2 } from "@mui/material";
-import { article } from "@/@types/arctice";
+import { Article } from "@/@types/article";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
-import { WobbleCard } from "../ui/wobble-card";
 import { removeMarkdown } from "@/lib/utils";
-interface props {
-  data: article;
+
+interface CardForPCProps {
+  data: Article;
 }
 
-export default function CardfoPC({ data }: props) {
+export default function CardForPC({ data }: CardForPCProps) {
   const { ref, inView } = useInView({
-    triggerOnce: true, // 触发一次
-    threshold: 0.1, // 降低阈值，当元素 10% 显示在视口时就触发
-    rootMargin: "100px 0px", // 提前 100px 触发动画
+    triggerOnce: true,
+    threshold: 0.1,
+    rootMargin: "100px 0px",
   });
+
   return (
     <div className="hidden md:block ">
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{
           opacity: inView ? 1 : 0,
-          y: inView ? 0 : 50,
+          y: inView ? 0 : 18,
         }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
       >
-        <WobbleCard containerClassName="bg-white/80 backdrop-blur-md border border-white/40 shadow-xl rounded-2xl hover:shadow-[0_20px_50px_rgba(99,102,241,0.3)] transition-shadow duration-500">
+        <Box
+          sx={{
+            p: { md: 2.2, lg: 2.6 },
+            border: "1px solid var(--border)",
+            borderRadius: "16px",
+            backgroundColor: "oklch(0.995 0.005 230 / 0.82)",
+            boxShadow: "0 18px 44px oklch(0.28 0.035 245 / 0.055)",
+            transition: "transform 180ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out",
+            "&:hover": {
+              transform: "translateY(-3px)",
+              borderColor: "oklch(0.45 0.08 235 / 0.45)",
+              boxShadow: "0 24px 60px oklch(0.28 0.035 245 / 0.09)",
+            },
+          }}
+        >
           <Grid2
             container
             columns={12}
             alignItems={"center"}
-            justifyContent={"center"}
+            spacing={2.4}
           >
-            <Grid2 size={{ xs: 0, sm: 3, md: 3 }}>
+            <Grid2 size={{ xs: 0, sm: 3, md: 3.2 }}>
               <Box
                 sx={{
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  aspectRatio: "1.18",
+                  overflow: "hidden",
+                  borderRadius: "12px",
+                  border: "1px solid var(--border)",
+                  background: "var(--surface)",
                 }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={data.HeadImg ? data.HeadImg : data.image}
-                  className="w-full h-full object-cover rounded-xl"
+                  alt={data.title}
+                  className="w-full h-full object-cover"
                 />
               </Box>
             </Grid2>
             <Grid2
               container
-              size={8}
-              spacing={1}
+              size={8.8}
+              spacing={1.2}
               direction={"column"}
               alignItems={"start"}
               justifyContent={"center"}
               columns={4}
             >
               <Grid2 size={3} offset={{ xs: 0, sm: 0.5, md: 0.5 }}>
-                <h2 className="font-bold text-slate-800 text-lg tracking-wide transition-all duration-300 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 cursor-pointer">
+                <h2 className="text-[1.35rem] font-extrabold leading-snug text-[var(--ink)] transition-colors duration-200 hover:text-[var(--accent)]">
                   {data.title}
                 </h2>
               </Grid2>
@@ -68,13 +89,15 @@ export default function CardfoPC({ data }: props) {
                 <Box
                   component={"p"}
                   sx={{
-                    color: "rgb(100 116 139)", // slate-500 equivalent
-                    minHeight: "12vh",
-                    maxHeight: "14vh",
+                    color: "var(--muted)",
+                    minHeight: "auto",
+                    maxHeight: "5.6rem",
                     overflow: "hidden",
+                    lineHeight: 1.75,
+                    fontSize: "0.96rem",
                   }}
                 >
-                  {removeMarkdown(data.content).slice(0, 50) + "..."}
+                  {removeMarkdown(data.content).slice(0, 92) + "..."}
                 </Box>
               </Grid2>
               <Grid2
@@ -86,18 +109,17 @@ export default function CardfoPC({ data }: props) {
               >
                 <Grid2
                   sx={{
-                    marginLeft: {
-                      sm: 5,
-                      md: 4,
-                      lg: 8,
-                    },
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 0.8,
+                    marginLeft: { sm: 4, md: 3, lg: 4 },
                   }}
                 >
-                  {data.tags.map((item, index) => {
+                  {data.tags.map((item) => {
                     return (
                       <span
-                        key={index}
-                        className="px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded-full shadow-sm hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transform hover:-translate-y-0.5 transition-all duration-300 ml-2 text-xs font-semibold tracking-wide"
+                        key={item.id}
+                        className="shelter-tag"
                       >
                         {item.name}
                       </span>
@@ -107,20 +129,20 @@ export default function CardfoPC({ data }: props) {
 
                 <Grid2
                   sx={{
-                    color: "rgb(148 163 184)",
+                    color: "var(--muted)",
                     fontSize: "0.8rem",
                     display: "flex",
                     alignItems: "center",
                     gap: 0.5,
                   }}
                 >
-                  <DriveFileRenameOutlineIcon></DriveFileRenameOutlineIcon>
+                  <DriveFileRenameOutlineIcon />
                   {data.createdAt.slice(0, 10)}
                 </Grid2>
               </Grid2>
             </Grid2>
           </Grid2>
-        </WobbleCard>
+        </Box>
       </motion.div>
     </div>
   );

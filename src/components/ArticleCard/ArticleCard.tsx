@@ -1,24 +1,30 @@
-import { article } from "@/@types/arctice";
+import { Article } from "@/@types/article";
 import { resData } from "@/@types/response";
 import request from "@/lib/request";
 import { AxiosResponse } from "axios";
-import Arctices from "./Arctices.client";
+import Articles from "./Articles.client";
 
-interface dataUrl {
+interface ArticleCardProps {
   urlPrefix: string;
 }
 
-export default async function ArtcileCard({ urlPrefix }: dataUrl) {
+export default async function ArticleCard({ urlPrefix }: ArticleCardProps) {
   const url =
     urlPrefix === "articles"
       ? "/articles?page=1&limit=10&status=1"
       : `/articles/tags/${urlPrefix}?page=1&limit=10&status=1`;
-  const res: AxiosResponse<resData<article[], "articles">> =
-    await request.get(url);
+  let res: AxiosResponse<resData<Article[], "articles">>;
+
+  try {
+    res = await request.get(url);
+  } catch {
+    return <Articles data={{ articles: [], total: 0 }} urlPrefix={urlPrefix} />;
+  }
+
   const data = {
     articles: res.data.data.articles,
     total: res.data.data.total,
   };
 
-  return <Arctices data={data} urlPrefix={urlPrefix}></Arctices>;
+  return <Articles data={data} urlPrefix={urlPrefix} />;
 }

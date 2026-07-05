@@ -37,10 +37,10 @@ export default function Footer() {
         }}
       >
         <Typography variant="body1" align="center">
-          © 星河的博客 {currentYear}
+          © 新青年talks {currentYear}
         </Typography>
         <Typography variant="caption" color="text.secondary" align="center">
-          网站已安全运行 {runningTime}
+          在数字荒原里，已守住这处庇护所 {runningTime}
         </Typography>
       </Box>
     </Container>

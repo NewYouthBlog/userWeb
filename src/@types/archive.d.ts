@@ -1,7 +1,7 @@
-import { article } from "./arctice";
+import { Article } from "./article";
 
-export type archIve = {
+export type Archive = {
   year: number;
   month: number;
-  articles: Omit<article, "tags">[];
+  articles: Omit<Article, "tags">[];
 };

@@ -1,55 +1,64 @@
 "use client";
 
 import React from "react";
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
-import { tags } from "@/@types/tag";
+import { Tag } from "@/@types/tag";
 import TagsButton from "../ui/tags-button";
-import { Box } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import Affix from "../common/Affix";
-interface props {
-  data: tags[];
+
+interface TagsCardClientProps {
+  data: Tag[];
 }
 
-export function TagsCard_client({ data }: props) {
-  const router = useRouter();
+export function TagsCard_client({ data }: TagsCardClientProps) {
   return (
-    <Affix offsetTop={50}>
-      <Box component="aside">
-        <CardContainer className="inter-var">
-          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1]  h-auto rounded-xl p-6 border">
-            <CardItem
-              translateZ="50"
-              className="text-0.8xl font-bold text-neutral-600 dark:text-white w-full flex justify-center"
-            >
-              所有标签
-              {/* 分割线 */}
-            </CardItem>
+    <Affix offsetTop={92}>
+      <Box
+        component="aside"
+        sx={{
+          p: 3,
+          border: "1px solid var(--border)",
+          borderRadius: "16px",
+          backgroundColor: "oklch(0.995 0.005 230 / 0.78)",
+          boxShadow: "0 18px 44px oklch(0.28 0.035 245 / 0.055)",
+        }}
+      >
+        <Typography
+          component="h2"
+          sx={{
+            color: "var(--ink)",
+            fontSize: 18,
+            fontWeight: 850,
+          }}
+        >
+          热门主题
+        </Typography>
+        <Typography sx={{ mt: 1, color: "var(--muted)", lineHeight: 1.7, fontSize: 14 }}>
+          用标签给文章建立坐标，找到你今天需要的补给。
+        </Typography>
 
-            <div className="border-t border-gray-300 my-4 flex"></div>
-
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-              }}
-            >
-              {data.map((item, index) => {
-                return (
-                  <div className="flex flex-wrap gap-1 p-2 " key={index}>
-                    <Link href={`/tags/${item.name}`} target="_blank">
-
-                      <TagsButton tagsName={item.name}></TagsButton>
-
-                    </Link>
-                  </div>
-                );
-              })}
-            </Box>
-          </CardBody>
-        </CardContainer>
+        <Box
+          sx={{
+            mt: 2.4,
+            display: "flex",
+            gap: 1,
+            flexWrap: "wrap",
+          }}
+        >
+          {data.map((item) => {
+            return (
+              <Link
+                key={item.id}
+                href={`/tags/${encodeURIComponent(item.name)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <TagsButton tagsName={item.name} />
+              </Link>
+            );
+          })}
+        </Box>
       </Box>
     </Affix>
   );

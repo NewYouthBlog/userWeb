@@ -377,7 +377,7 @@ sudo systemctl status nginx
 
 2. **配置环境变量**
 
-   - `NEXT_PUBLIC_BASE_URL`: 填入你的域名 (例如 `http://www.yourdomain.com`)，用于 SEO 和 API 请求。
+   - `NEXT_PUBLIC_BASE_URL`: 填入公开站点域名，本项目生产环境使用 `https://neotalks.org`，用于 SEO、canonical、sitemap 和 OpenGraph。
 
 3. **启动服务**
 

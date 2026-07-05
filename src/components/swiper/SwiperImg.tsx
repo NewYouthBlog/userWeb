@@ -10,35 +10,47 @@ import "./swiper.css";
 import request from "@/lib/request";
 import { AxiosResponse } from "axios";
 import { resData } from "@/@types/response";
-import { article } from "@/@types/arctice";
-
-//FIX: use database
+import { Article } from "@/@types/article";
 
 export default function SwiperImg() {
   const [showNavigation, setShowNavigation] = useState(false);
 
-  const handleshouwnavigation = () => {
+  const handleShowNavigation = () => {
     setShowNavigation(true);
   };
-  const handledisshouwnavigation = () => {
+  const handleHideNavigation = () => {
     setShowNavigation(false);
   };
 
-  const [headline, setHeadline] = useState<article[]>([]);
+  const [headline, setHeadline] = useState<Article[]>([]);
 
   useEffect(() => {
+    let ignore = false;
+
     const fetchHeadline = async () => {
-      const res: AxiosResponse<resData<article[], "articles">> =
-        await request.get("/headline");
-      setHeadline(res.data.data.articles.reverse());
+      try {
+        const res: AxiosResponse<resData<Article[], "articles">> =
+          await request.get("/headline");
+        if (!ignore) {
+          setHeadline([...res.data.data.articles].reverse());
+        }
+      } catch {
+        if (!ignore) {
+          setHeadline([]);
+        }
+      }
     };
+
     fetchHeadline();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (
     <div
-      onMouseEnter={handleshouwnavigation}
-      onMouseLeave={handledisshouwnavigation}
+      onMouseEnter={handleShowNavigation}
+      onMouseLeave={handleHideNavigation}
     >
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
@@ -51,11 +63,17 @@ export default function SwiperImg() {
         // style={{ height: "50vh", width: "100%" }}
         className="swiper-container"
       >
-        {headline.map((value, index) => (
-          <SwiperSlide key={index}>
-            <a href={`/articles/${value.id}`} target="_blank">
+        {headline.map((value) => (
+          <SwiperSlide key={value.id}>
+            <a
+              href={`/articles/${value.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={value.HeadImg}
+                src={value.HeadImg || value.image}
+                alt={value.title}
                 style={{
                   width: "100%", // 使图片宽度适应容器
                   height: "100%", // 使图片高度适应容器

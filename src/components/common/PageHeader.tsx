@@ -8,16 +8,18 @@ export default function PageHeader({
   return (
     <Box
       sx={{
-        mt: 8,
+        mt: 0,
+        pt: 12,
         width: "auto",
-        height: "40vh",
+        minHeight: "34vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // position: "relative",
-        backgroundImage: "url(/3.jpg)",
-        backgroundPosition: "0% 13%",
-        backgroundSize: "cover",
+        px: 2,
+        borderBottom: "1px solid var(--border)",
+        background:
+          "radial-gradient(circle at 50% 0%, oklch(0.54 0.07 155 / 0.18), transparent 28rem), linear-gradient(90deg, oklch(0.84 0.018 230 / 0.32) 1px, transparent 1px), linear-gradient(180deg, oklch(0.84 0.018 230 / 0.26) 1px, transparent 1px)",
+        backgroundSize: "auto, 38px 38px, 38px 38px",
       }}
     >
       <div>{children}</div>

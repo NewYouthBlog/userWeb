@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, ReactNode } from "react";
+import React, { useCallback, useEffect, useState, useRef, ReactNode } from "react";
 
 interface AffixProps {
   offsetTop?: number; // 距离顶部的偏移量
@@ -14,26 +14,25 @@ const Affix: React.FC<AffixProps> = ({
   style = {},
 }) => {
   const [isAffixed, setIsAffixed] = useState(false);
+  const [affixWidth, setAffixWidth] = useState<number | null>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
   const affixRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!placeholderRef.current || !affixRef.current) return;
 
     const { top } = placeholderRef.current.getBoundingClientRect();
-    if (top <= offsetTop) {
-      if (!isAffixed) setIsAffixed(true);
-    } else {
-      if (isAffixed) setIsAffixed(false);
-    }
-  };
+    setAffixWidth(placeholderRef.current.offsetWidth);
+    setIsAffixed(top <= offsetTop);
+  }, [offsetTop]);
 
   useEffect(() => {
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isAffixed, offsetTop]);
+  }, [handleScroll]);
 
   return (
     <div ref={placeholderRef} style={{ position: "relative" }}>
@@ -45,7 +44,7 @@ const Affix: React.FC<AffixProps> = ({
             ...style,
             position: "fixed",
             top: offsetTop,
-            width: placeholderRef.current?.offsetWidth || "auto",
+            width: affixWidth || "auto",
             zIndex: 10,
           }}
         >

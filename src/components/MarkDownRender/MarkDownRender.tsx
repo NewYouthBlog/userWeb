@@ -1,84 +1,99 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
+import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "./markdown-indigo.css";
 import rehypeHighlight from "rehype-highlight";
-import rehypeRaw from "rehype-raw";
 
 interface MarkdownRendererProps {
   content: string;
+}
+
+function getNodeText(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") {
+    return String(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(getNodeText).join("");
+  }
+
+  if (React.isValidElement<{ children?: ReactNode }>(node)) {
+    return getNodeText(node.props.children);
+  }
+
+  return "";
+}
+
+function CopyablePre({ children }: { children?: ReactNode }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(getNodeText(children));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("复制失败:", err);
+    }
+  };
+
+  return (
+    <pre>
+      {children}
+      <button
+        type="button"
+        className={`copy-code-button${copied ? " copied" : ""}`}
+        title="复制代码"
+        onClick={handleCopy}
+      >
+        {copied ? (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        ) : (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        )}
+      </button>
+    </pre>
+  );
 }
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
 
-  useEffect(() => {
-    // 为所有代码块添加复制按钮
-    const codeBlocks = document.querySelectorAll("#write pre");
-
-    codeBlocks.forEach((block) => {
-      // 检查是否已经添加过按钮
-      if (block.querySelector(".copy-code-button")) return;
-
-      const button = document.createElement("button");
-      button.className = "copy-code-button";
-      button.title = "复制代码";
-      button.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-      `;
-
-      button.addEventListener("click", async () => {
-        const code = block.querySelector("code");
-        if (code) {
-          try {
-            await navigator.clipboard.writeText(code.textContent || "");
-            button.innerHTML = `
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            `;
-            button.classList.add("copied");
-
-            setTimeout(() => {
-              button.innerHTML = `
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-              `;
-              button.classList.remove("copied");
-            }, 2000);
-          } catch (err) {
-            console.error("复制失败:", err);
-          }
+  const components = useMemo<Components>(
+    () => ({
+      pre({ children }) {
+        return <CopyablePre>{children}</CopyablePre>;
+      },
+      img({ src, alt }) {
+        if (!src || typeof src !== "string") {
+          return null;
         }
-      });
 
-      block.appendChild(button);
-    });
-
-    // 为所有图片添加点击预览功能
-    const images = document.querySelectorAll<HTMLImageElement>("#write img");
-    images.forEach((img) => {
-      img.style.cursor = "pointer";
-      img.addEventListener("click", () => {
-        setPreviewImage(img.src);
-        setScale(1);
-      });
-    });
-
-    return () => {
-      images.forEach((img) => {
-        img.removeEventListener("click", () => { });
-      });
-    };
-  }, [content]);
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={alt || ""}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setPreviewImage(src);
+              setScale(1);
+            }}
+          />
+        );
+      },
+    }),
+    [],
+  );
 
   const handleZoomIn = () => {
     setScale((prev) => Math.min(prev + 0.25, 3));
@@ -98,7 +113,8 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
       <div id="write">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight, rehypeRaw]}
+          rehypePlugins={[rehypeHighlight]}
+          components={components}
         >
           {content}
         </ReactMarkdown>
@@ -157,6 +173,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             className="image-preview-container"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewImage}
               alt="Preview"

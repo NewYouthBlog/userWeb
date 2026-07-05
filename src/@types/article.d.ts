@@ -1,13 +1,12 @@
-import { tags } from "./tag";
+import { Tag } from "./tag";
 
-export type article = {
+export type Article = {
   id: number;
   image: string;
   title: string;
   content: string;
   createdAt: string;
-  tags: tags[];
-  HeadImg?: string;
-  createdAt: string;
   updatedAt: string;
+  tags: Tag[];
+  HeadImg?: string;
 };

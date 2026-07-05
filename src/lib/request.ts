@@ -1,19 +1,20 @@
 import axios from "axios";
 
-const baseUrl =
+const trimTrailingSlash = (url: string) => url.replace(/\/+$/, "");
+
+const configuredBaseUrl =
+  process.env.NEXT_PUBLIC_API_URL ||
   process.env.API_URL ||
-  process.env.INTERNAL_API_URL ||
-  (typeof window !== "undefined"
-    ? "/api"
-    : process.env.NEXT_PUBLIC_BASE_URL
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api`
-      : "http://localhost:3000/api");
+  process.env.INTERNAL_API_URL;
+
+const baseUrl = trimTrailingSlash(
+  configuredBaseUrl ||
+    (process.env.NODE_ENV === "development" ? "http://localhost:3001" : ""),
+);
 
 const request = axios.create({
   baseURL: baseUrl,
-  validateStatus() {
-    return true;
-  },
+  timeout: 10000,
 });
 
 export default request;
