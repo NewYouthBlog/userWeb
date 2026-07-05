@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AppBarClient from "@/components/AppBar/AppBar.client";
 import Footer from "@/components/footer";
-import { Box } from "@mui/material";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import {
   SITE_AUTHOR,
@@ -59,28 +58,14 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body>
         <ThemeRegistry>
+          <a href="#main-content" className="skip-link">
+            跳到 main-content
+          </a>
           <AppBarClient />
-          <Box
-            component="main"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "85vh",
-            }}
-          >
+          <main id="main-content">
             {children}
-          </Box>
-          <Box
-            component="footer"
-            sx={{
-              py: 2,
-              mt: 8,
-              backgroundColor: "transparent",
-              color: "var(--ink)",
-            }}
-          >
-            <Footer />
-          </Box>
+          </main>
+          <Footer />
         </ThemeRegistry>
       </body>
     </html>

@@ -1,48 +1,46 @@
 "use client";
 
-import { Container, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+function useRunningTime(startIso: string) {
   const [runningTime, setRunningTime] = useState("");
 
   useEffect(() => {
-    // 设置建站时间，例如：2024-01-01 00:00:00
-    const startDate = new Date("2025-12-01T00:00:00");
+    const startDate = new Date(startIso);
 
-    const timer = setInterval(() => {
-      const now = new Date();
-      const difference = now.getTime() - startDate.getTime();
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((difference / (1000 * 60)) % 60);
-      const seconds = Math.floor((difference / 1000) % 60);
-
+    const update = () => {
+      const diff = Date.now() - startDate.getTime();
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
       setRunningTime(`${days}天 ${hours}小时 ${minutes}分 ${seconds}秒`);
-    }, 1000);
+    };
 
+    update();
+    const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [startIso]);
+
+  return runningTime;
+}
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+  const runningTime = useRunningTime("2025-12-01T00:00:00");
 
   return (
-    <Container maxWidth="md">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 1,
-        }}
-      >
-        <Typography variant="body1" align="center">
-          © 新青年talks {currentYear}
-        </Typography>
-        <Typography variant="caption" color="text.secondary" align="center">
+    <footer className="site-footer">
+      <div className="site-footer__inner">
+        <p className="site-footer__line">
+          <strong>新青年talks</strong>
+          <span className="site-footer__sep" aria-hidden="true" />
+          <span>© {currentYear}</span>
+        </p>
+        <p className="site-footer__line site-footer__line--muted">
           在数字荒原里，已守住这处庇护所 {runningTime}
-        </Typography>
-      </Box>
-    </Container>
+        </p>
+      </div>
+    </footer>
   );
 }

@@ -1,87 +1,92 @@
 "use client";
+
 import ArchiveIcon from "@mui/icons-material/Archive";
 import HomeIcon from "@mui/icons-material/Home";
-import { Button, styled } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import { motion, AnimatePresence } from "framer-motion";
 import Box from "@mui/material/Box";
-import React, { useTransition } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { usePathname, useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useTransition } from "react";
 
-
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: "oklch(0.985 0.007 230 / 0.88)",
-  backdropFilter: "blur(14px)",
-  borderBottom: "1px solid oklch(0.84 0.025 225 / 0.82)",
-  boxShadow: "none",
-}));
+const routes = [
+  { label: "主页", icon: <HomeIcon fontSize="small" />, path: "/" },
+  { label: "归档", icon: <ArchiveIcon fontSize="small" />, path: "/archive" },
+];
 
 export default function AppBarClient() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  const handleNavigation = (path: string) => {
-    if (pathname === path) {
-      return;
-    }
-
-    startTransition(() => {
-      router.push(path);
-    });
+  const navigate = (path: string) => {
+    if (pathname === path) return;
+    startTransition(() => router.push(path));
   };
 
-  const pathMap = [
-    { labelText: "主页", icon: <HomeIcon />, routerPath: "/" },
-    { labelText: "归档", icon: <ArchiveIcon />, routerPath: "/archive" }, // 假设还有其他图标
-    // 可以在这里添加更多的项目
-  ];
-
   return (
-    <StyledAppBar position="fixed" color="transparent">
-      <Toolbar sx={{ minHeight: 68, px: { xs: 2, md: 5 } }}>
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        backgroundColor: "oklch(0.985 0.007 230 / 0.92)",
+        borderBottom: "1px solid oklch(0.84 0.025 225 / 0.85)",
+        backdropFilter: "blur(12px)",
+      }}
+    >
+      <Toolbar
+        sx={{
+          minHeight: { xs: 60, md: 68 },
+          px: { xs: "1rem", md: "clamp(1rem, 4vw, 3rem)" },
+          gap: 2,
+        }}
+        className="page-shell"
+      >
         <Box
-          onClick={() => handleNavigation("/")}
+          component="button"
+          onClick={() => navigate("/")}
           sx={{
-            cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            gap: 1.15,
-            mr: 3,
+            gap: 1.1,
+            mr: 2,
+            p: 0,
+            border: 0,
+            background: "transparent",
+            cursor: "pointer",
           }}
+          aria-label="回到主页"
         >
           <Box
             sx={{
               position: "relative",
-              width: { xs: 42, md: 48 },
-              height: { xs: 42, md: 48 },
+              width: 38,
+              height: 38,
               flexShrink: 0,
               overflow: "hidden",
               border: "1px solid var(--border)",
-              borderRadius: "14px",
+              borderRadius: "10px",
               backgroundColor: "var(--surface-raised)",
-              boxShadow: "0 10px 26px oklch(0.28 0.035 245 / 0.08)",
             }}
           >
             <Image
               src="/logo.png"
-              alt="新青年talks logo"
+              alt=""
               fill
-              sizes="48px"
+              sizes="38px"
               style={{ objectFit: "cover" }}
               priority
             />
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+          <Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column", lineHeight: 1.1 }}>
             <Typography
               component="span"
               sx={{
                 color: "var(--ink)",
-                fontSize: { xs: 17, md: 19 },
-                fontWeight: 850,
+                fontSize: 16,
+                fontWeight: 800,
                 letterSpacing: 0,
               }}
             >
@@ -90,11 +95,11 @@ export default function AppBarClient() {
             <Typography
               component="span"
               sx={{
-                mt: 0.6,
+                mt: 0.3,
                 color: "var(--muted)",
-                fontSize: 11,
+                fontSize: 10,
                 fontWeight: 700,
-                letterSpacing: "0.14em",
+                letterSpacing: "0.12em",
                 textTransform: "uppercase",
               }}
             >
@@ -104,46 +109,48 @@ export default function AppBarClient() {
         </Box>
 
         <Box sx={{ flexGrow: 1 }} />
-        {pathMap.map((item) => (
-          <Button
-            key={item.routerPath}
-            size="small"
-            aria-label={item.labelText}
-            sx={{
-              mr: { xs: 0.5, md: 1 },
-              px: { xs: 1, md: 1.4 },
-              minWidth: 0,
-              borderRadius: 999,
-              color:
-                pathname === item.routerPath
-                  ? "var(--ink)"
-                  : "var(--muted)",
-              backgroundColor:
-                pathname === item.routerPath
-                  ? "oklch(0.54 0.07 155 / 0.11)"
-                  : "transparent",
-              border:
-                pathname === item.routerPath
-                  ? "1px solid oklch(0.54 0.07 155 / 0.28)"
-                  : "1px solid transparent",
-            }}
-            onClick={() => handleNavigation(item.routerPath)}
-          >
-            <Typography
-              component="span"
-              className="font-custom flex items-center"
-              sx={{
-                gap: 0.5,
-                fontSize: { xs: 13, md: 14 },
-                fontWeight: 750,
-              }}
-            >
-              {item.icon}
-              {item.labelText}
-            </Typography>
-          </Button>
-        ))}
+
+        <Box component="nav" aria-label="主导航" sx={{ display: "flex", gap: { xs: 0.5, md: 1 } }}>
+          {routes.map((route) => {
+            const active = pathname === route.path;
+            return (
+              <Box
+                key={route.path}
+                component="button"
+                onClick={() => navigate(route.path)}
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                  px: { xs: 1, md: 1.25 },
+                  py: 0.6,
+                  minHeight: 36,
+                  border: "1px solid",
+                  borderColor: active ? "oklch(0.54 0.07 155 / 0.32)" : "transparent",
+                  borderRadius: 999,
+                  backgroundColor: active ? "var(--shelter-soft)" : "transparent",
+                  color: active ? "var(--ink)" : "var(--muted)",
+                  fontSize: { xs: 13, md: 14 },
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  transition: "color 160ms ease-out, background-color 160ms ease-out, border-color 160ms ease-out",
+                  "&:hover": {
+                    color: "var(--ink)",
+                    backgroundColor: active ? "var(--shelter-soft)" : "var(--surface)",
+                  },
+                }}
+                aria-current={active ? "page" : undefined}
+              >
+                {route.icon}
+                <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+                  {route.label}
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
       </Toolbar>
+
       <AnimatePresence>
         {isPending && (
           <motion.div
@@ -155,13 +162,13 @@ export default function AppBarClient() {
               position: "absolute",
               top: 0,
               left: 0,
-              height: "3px",
+              height: "2px",
               background: "linear-gradient(90deg, var(--accent), var(--shelter))",
               zIndex: 9999,
             }}
           />
         )}
       </AnimatePresence>
-    </StyledAppBar>
+    </AppBar>
   );
 }

@@ -2,9 +2,7 @@ import { Article } from "@/@types/article";
 import { resData } from "@/@types/response";
 import MarkdownRenderer from "@/components/MarkDownRender/MarkDownRender";
 import request from "@/lib/request";
-import { Box, Container, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
-
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
@@ -83,9 +81,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   } catch {
     notFound();
   }
+
   const article = res.data.data;
   const canonical = `/articles/${id}`;
   const image = article.image || article.HeadImg;
+  const date = article.createdAt?.slice(0, 10);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -111,38 +112,42 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   };
 
   return (
-    <Container maxWidth={false} sx={{ pt: 12, px: { xs: 2, md: 4 } }}>
+    <article className="article-page">
       <script
         id="article-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <Box component="article" className="article-reading-shell">
-        <Box className="article-reading-header">
-          <Typography component="p" className="article-reading-kicker">
-            Field Note / {article.createdAt?.slice(0, 10)}
-          </Typography>
-          <Typography component="h1" className="article-reading-title">
-            {article.title}
-          </Typography>
+
+      <header className="article-hero">
+        <div className="page-shell article-hero__inner">
+          <span className="kicker article-hero__kicker">
+            Field Note / {date}
+          </span>
+          <h1 className="article-hero__title">{article.title}</h1>
+
           {article.tags?.length > 0 && (
-            <Box className="article-reading-tags">
+            <div className="article-hero__tags" aria-label="标签">
               {article.tags.map((tag) => (
-                <span key={tag.id} className="shelter-tag">
+                <span key={tag.id} className="tag-chip">
                   {tag.name}
                 </span>
               ))}
-            </Box>
+            </div>
           )}
-          {image && (
-            <Box className="article-reading-cover">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={image} alt={article.title} />
-            </Box>
-          )}
-        </Box>
+        </div>
+
+        {image && (
+          <div className="article-hero__cover">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={image} alt={article.title} />
+          </div>
+        )}
+      </header>
+
+      <div className="article-body">
         <MarkdownRenderer content={article.content} />
-      </Box>
-    </Container>
+      </div>
+    </article>
   );
 }

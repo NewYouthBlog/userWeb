@@ -1,85 +1,58 @@
 "use client";
-import { useScroll, useTransform, motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
-import PageHeader from "../common/PageHeader";
-import TypingAnimation from "./typing-animation";
+
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import React from "react";
 
 interface TimelineEntry {
   title: string;
   content: React.ReactNode;
 }
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
+interface TimelineProps {
+  data: TimelineEntry[];
+}
 
-  useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 10%", "end 50%"],
+function TimelineSection({ item, index }: { item: TimelineEntry; index: number }) {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.05,
+    rootMargin: "60px 0px",
   });
 
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
   return (
-    <>
-      <PageHeader>
-        <TypingAnimation
-          text="时间线"
-          className="text-5xl font-bold text-[var(--ink)]"
-        />
-      </PageHeader>
-      <div
-        className="w-full bg-transparent font-sans md:px-10"
-        ref={containerRef}
-      >
-        <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
-          {data.map((item) => (
-            <div
-              key={item.title}
-              className="flex justify-start pt-10 md:pt-32 md:gap-10"
-            >
-              <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-                <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center shadow-[0_10px_28px_oklch(0.28_0.035_245_/_0.08)]">
-                  <div className="h-4 w-4 rounded-full bg-[var(--shelter)] border border-[oklch(0.54_0.07_155_/_0.35)] p-2" />
-                </div>
-                <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-extrabold text-[var(--muted)]">
-                  {item.title}
-                </h3>
-              </div>
-
-              <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                <h3 className="md:hidden block text-2xl mb-4 text-left font-extrabold text-[var(--muted)]">
-                  {item.title}
-                </h3>
-                {item.content}
-              </div>
-            </div>
-          ))}
-          <div
-            style={{
-              height: height + "px",
-            }}
-            className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,transparent,var(--border),transparent)] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
-          >
-            <motion.div
-              style={{
-                height: heightTransform,
-                opacity: opacityTransform,
-              }}
-              className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-[linear-gradient(to_top,var(--shelter),var(--accent),transparent)]"
-            />
-          </div>
-        </div>
-      </div>
-    </>
+    <motion.section
+      ref={ref}
+      initial={{ opacity: 0, y: 18 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
+      className="archive-issue"
+    >
+      <header className="archive-issue__header">
+        <span className="archive-issue__marker" aria-hidden="true" />
+        <h2 className="archive-issue__title">{item.title}</h2>
+      </header>
+      {item.content}
+    </motion.section>
   );
-};
+}
+
+export function Timeline({ data }: TimelineProps) {
+  return (
+    <div className="page-shell archive-page">
+      <header className="archive-page__header">
+        <span className="kicker">Archive</span>
+        <h1 className="section-heading">时间线</h1>
+        <p className="section-lead archive-page__lead">
+          按月份归档的文章索引。每一期都是一段在数字荒原中留下的脚印。
+        </p>
+      </header>
+
+      <div className="archive-timeline">
+        {data.map((item, index) => (
+          <TimelineSection key={item.title} item={item} index={index} />
+        ))}
+      </div>
+    </div>
+  );
+}

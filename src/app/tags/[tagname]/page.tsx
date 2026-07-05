@@ -1,8 +1,4 @@
-import ArcticCard from "@/components/ArticleCard/ArticleCard";
-import PageHeader from "@/components/common/PageHeader";
-import TypingAnimation from "@/components/ui/typing-animation";
-import { Container } from "@mui/material";
-
+import ArticleCard from "@/components/ArticleCard/ArticleCard";
 import { Metadata } from "next";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -16,6 +12,7 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
   const { tagname } = await params;
   const decodedTag = decodeURIComponent(tagname);
   const canonical = `/tags/${encodeURIComponent(decodedTag)}`;
+
   return {
     title: `标签: ${decodedTag}`,
     description: `查看所有关于 ${decodedTag} 的文章`,
@@ -33,17 +30,19 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
 
 export default async function TagPage({ params }: TagPageProps) {
   const { tagname } = await params;
+  const decodedTag = decodeURIComponent(tagname);
+
   return (
-    <>
-      <PageHeader>
-        <TypingAnimation
-          text={decodeURIComponent(tagname)}
-          className="text-5xl font-bold text-white"
-        />
-      </PageHeader>
-      <Container>
-        <ArcticCard urlPrefix={tagname} />
-      </Container>
-    </>
+    <div className="page-shell tag-page">
+      <header className="tag-page__header">
+        <span className="kicker">Tag</span>
+        <h1 className="section-heading">{decodedTag}</h1>
+        <p className="section-lead tag-page__lead">
+          所有与 “{decodedTag}” 相关的文章索引。
+        </p>
+      </header>
+
+      <ArticleCard urlPrefix={tagname} />
+    </div>
   );
 }

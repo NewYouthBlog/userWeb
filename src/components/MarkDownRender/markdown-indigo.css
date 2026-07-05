@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 #write {
-  max-width: 740px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: clamp(1.4rem, 4vw, 3rem) 1rem clamp(3rem, 7vw, 5rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0 clamp(3rem, 7vw, 5rem);
   color: var(--ink);
   font-family:
     -apple-system,
@@ -11,9 +11,11 @@
     "Segoe UI",
     Helvetica,
     Arial,
+    "PingFang SC",
+    "Microsoft YaHei",
     sans-serif;
-  font-size: 18px;
-  line-height: 1.86;
+  font-size: 17px;
+  line-height: 1.85;
   word-break: break-word;
 }
 
