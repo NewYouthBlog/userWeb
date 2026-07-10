@@ -32,13 +32,13 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
-        <p className="site-footer__line">
+        <p className="site-footer__brand">
           <strong>新青年talks</strong>
           <span className="site-footer__sep" aria-hidden="true" />
           <span>© {currentYear}</span>
         </p>
-        <p className="site-footer__line site-footer__line--muted">
-          在数字荒原里，已守住这处庇护所 {runningTime}
+        <p className="site-footer__meta">
+          在数字荒原里，已守住这处庇护所 {runningTime || "—"}
         </p>
       </div>
     </footer>

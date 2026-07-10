@@ -12,8 +12,8 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 
 const routes = [
-  { label: "主页", icon: <HomeIcon fontSize="small" />, path: "/" },
-  { label: "归档", icon: <ArchiveIcon fontSize="small" />, path: "/archive" },
+  { label: "主页", icon: <HomeIcon sx={{ fontSize: 16 }} />, path: "/" },
+  { label: "归档", icon: <ArchiveIcon sx={{ fontSize: 16 }} />, path: "/archive" },
 ];
 
 export default function AppBarClient() {
@@ -31,14 +31,14 @@ export default function AppBarClient() {
       position="fixed"
       elevation={0}
       sx={{
-        backgroundColor: "oklch(0.985 0.007 230 / 0.92)",
-        borderBottom: "1px solid oklch(0.84 0.025 225 / 0.85)",
-        backdropFilter: "blur(12px)",
+        backgroundColor: "var(--canvas)",
+        borderBottom: "1px solid var(--border)",
+        boxShadow: "none",
       }}
     >
       <Toolbar
         sx={{
-          minHeight: { xs: 60, md: 68 },
+          minHeight: { xs: 52, md: 56 },
           px: { xs: "1rem", md: "clamp(1rem, 4vw, 3rem)" },
           gap: 2,
         }}
@@ -50,8 +50,8 @@ export default function AppBarClient() {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1.1,
-            mr: 2,
+            gap: 1,
+            mr: 1,
             p: 0,
             border: 0,
             background: "transparent",
@@ -62,55 +62,44 @@ export default function AppBarClient() {
           <Box
             sx={{
               position: "relative",
-              width: 38,
-              height: 38,
+              width: 28,
+              height: 28,
               flexShrink: 0,
               overflow: "hidden",
               border: "1px solid var(--border)",
-              borderRadius: "10px",
-              backgroundColor: "var(--surface-raised)",
+              backgroundColor: "var(--surface)",
             }}
           >
             <Image
               src="/logo.png"
               alt=""
               fill
-              sizes="38px"
+              sizes="28px"
               style={{ objectFit: "cover" }}
               priority
             />
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column", lineHeight: 1.1 }}>
-            <Typography
-              component="span"
-              sx={{
-                color: "var(--ink)",
-                fontSize: 16,
-                fontWeight: 800,
-                letterSpacing: 0,
-              }}
-            >
-              新青年talks
-            </Typography>
-            <Typography
-              component="span"
-              sx={{
-                mt: 0.3,
-                color: "var(--muted)",
-                fontSize: 10,
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-              }}
-            >
-              Digital Shelter
-            </Typography>
-          </Box>
+          <Typography
+            component="span"
+            sx={{
+              color: "var(--ink)",
+              fontSize: { xs: 15, md: 16 },
+              fontWeight: 800,
+              letterSpacing: "-0.01em",
+              lineHeight: 1,
+            }}
+          >
+            新青年talks
+          </Typography>
         </Box>
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Box component="nav" aria-label="主导航" sx={{ display: "flex", gap: { xs: 0.5, md: 1 } }}>
+        <Box
+          component="nav"
+          aria-label="主导航"
+          sx={{ display: "flex", alignItems: "stretch", gap: { xs: 0.25, md: 0.5 } }}
+        >
           {routes.map((route) => {
             const active = pathname === route.path;
             return (
@@ -122,21 +111,21 @@ export default function AppBarClient() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 0.5,
-                  px: { xs: 1, md: 1.25 },
-                  py: 0.6,
+                  px: { xs: 0.9, md: 1.1 },
+                  py: 0.5,
                   minHeight: 36,
-                  border: "1px solid",
-                  borderColor: active ? "oklch(0.54 0.07 155 / 0.32)" : "transparent",
-                  borderRadius: 999,
-                  backgroundColor: active ? "var(--shelter-soft)" : "transparent",
+                  border: 0,
+                  borderBottom: "2px solid",
+                  borderRadius: 0,
+                  borderColor: active ? "var(--ink)" : "transparent",
+                  backgroundColor: "transparent",
                   color: active ? "var(--ink)" : "var(--muted)",
                   fontSize: { xs: 13, md: 14 },
                   fontWeight: 700,
                   cursor: "pointer",
-                  transition: "color 160ms ease-out, background-color 160ms ease-out, border-color 160ms ease-out",
+                  transition: "color 160ms var(--ease-out), border-color 160ms var(--ease-out)",
                   "&:hover": {
                     color: "var(--ink)",
-                    backgroundColor: active ? "var(--shelter-soft)" : "var(--surface)",
                   },
                 }}
                 aria-current={active ? "page" : undefined}
@@ -160,10 +149,10 @@ export default function AppBarClient() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
             style={{
               position: "absolute",
-              top: 0,
+              bottom: 0,
               left: 0,
               height: "2px",
-              background: "linear-gradient(90deg, var(--accent), var(--shelter))",
+              background: "var(--accent)",
               zIndex: 9999,
             }}
           />

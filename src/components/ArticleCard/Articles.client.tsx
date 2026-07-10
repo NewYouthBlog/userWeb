@@ -27,6 +27,14 @@ export default function Articles({ data, urlPrefix }: ArticlesProps) {
     urlPrefix === "articles" ? "/articles" : `/articles/tags/${urlPrefix}`;
 
   useEffect(() => {
+    // Page 1 always comes from the server — never re-fetch (Strict Mode safe)
+    if (page === 1) {
+      setArticles(data.articles);
+      setError("");
+      setLoading(false);
+      return;
+    }
+
     let ignore = false;
 
     async function fetchData() {
@@ -55,47 +63,53 @@ export default function Articles({ data, urlPrefix }: ArticlesProps) {
     return () => {
       ignore = true;
     };
-  }, [page, apiPath]);
+  }, [page, apiPath, data.articles]);
 
   const totalPages = Math.ceil(total / 10);
 
   return (
     <>
       {error && (
-        <p className="text-center mt-10 text-red-600" role="alert">
+        <p className="magazine-list__status magazine-list__status--error" role="alert">
           {error}
         </p>
       )}
 
       {!error && articles.length === 0 && !loading && (
-        <p className="text-center mt-10 text-[var(--muted)]">暂无文章</p>
+        <p className="magazine-list__status">暂无文章</p>
       )}
 
-      <div className={`magazine-list ${loading ? "opacity-60" : ""}`} aria-busy={loading}>
-        {articles.map((item, index) => (
-          <Link
-            key={item.id}
-            href={`/articles/${item.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="entry-link"
-          >
-            <ArticleItem data={item} index={index + (page - 1) * 10} />
-          </Link>
-        ))}
+      <div className="magazine-list-shell" aria-busy={loading}>
+        {loading && (
+          <div className="magazine-list__progress" role="status" aria-live="polite">
+            <span className="magazine-list__progress-bar" />
+            <span className="sr-only">正在加载文章</span>
+          </div>
+        )}
+
+        <div className="magazine-list">
+          {articles.map((item, index) => (
+            <Link
+              key={item.id}
+              href={`/articles/${item.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="entry-link"
+            >
+              <ArticleItem data={item} index={index + (page - 1) * 10} />
+            </Link>
+          ))}
+        </div>
       </div>
 
       {totalPages > 1 && (
-        <nav
-          className="pagination"
-          aria-label="文章分页"
-        >
+        <nav className="pagination" aria-label="文章分页">
           <button
             type="button"
             className="pagination__button"
-            disabled={page <= 1}
+            disabled={page <= 1 || loading}
             onClick={() => {
-              setPage(page - 1);
+              setPage((p) => p - 1);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             aria-label="上一页"
@@ -107,15 +121,15 @@ export default function Articles({ data, urlPrefix }: ArticlesProps) {
           </button>
 
           <span className="pagination__info" aria-live="polite">
-            第 {page} / {totalPages} 页
+            {loading ? "加载中…" : `第 ${page} / ${totalPages} 页`}
           </span>
 
           <button
             type="button"
             className="pagination__button"
-            disabled={page >= totalPages}
+            disabled={page >= totalPages || loading}
             onClick={() => {
-              setPage(page + 1);
+              setPage((p) => p + 1);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             aria-label="下一页"
